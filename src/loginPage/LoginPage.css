@@ -1,0 +1,26 @@
+.login-container {
+    width: 100%; /* Makes the container take full width */
+    max-width: 350px; /* Optional: sets a max width */
+    height: 100%; /* Makes the container take full width */
+    max-height: 550; /* Optional: sets a max width */
+    padding: 2rem; /* Increases padding for better spacing */
+    border: 1px solid #ccc; /* Optional: adds a border */
+    border-radius: 8px; /* Optional: adds rounded corners */
+    background-color: #fff; /* Optional: sets a background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow effect */
+}
+  .login-btn {
+    background-color: #1877f2;
+    color: white;
+  }
+  .login-btn:hover {
+    background-color: #165dd9;
+  }
+  .register-btn {
+    color: #1877f2;
+  }
+  .form-control {
+    width: 100%; /* Makes input fields take full width */
+    max-width: 400px; /* Optional: sets a max width */
+    padding: 1rem;
+}
