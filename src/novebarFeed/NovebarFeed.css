@@ -1,0 +1,39 @@
+.custom-navbar {
+    background-color: #cce7ff; /* Light blue color */
+    padding: 0.5rem 1rem; /* Smaller padding, using rem for responsiveness */
+  }
+  
+  .custom-navbar .navbar-brand {
+    font-size: 1.25rem; /* Using rem to scale based on screen size */
+  }
+  
+  .custom-navbar .nav-link {
+    font-size: 0.9rem; /* Font size adapts responsively */
+    padding: 0.4rem 0.75rem; /* Responsive padding */
+  }
+  
+  .custom-navbar .custom-btn {
+    font-size: 0.85rem; /* Button text scales with screen size */
+    padding: 0.5rem 1rem; /* Adjust padding for button */
+  }
+  
+  .custom-navbar .custom-input {
+    padding: 0.4rem 0.75rem; /* Input field scales with screen size */
+    font-size: 0.85rem; /* Adjust font size for input */
+  }
+  
+  @media (max-width: 768px) {
+    /* For medium to small screens, adjust sizes */
+    .custom-navbar .navbar-brand {
+      font-size: 1rem; /* Smaller brand text */
+    }
+    .custom-navbar .nav-link {
+      font-size: 0.8rem; /* Smaller nav link font */
+    }
+    .custom-navbar .custom-btn {
+      font-size: 0.75rem; /* Smaller button font */
+    }
+    .custom-navbar .custom-input {
+      font-size: 0.75rem; /* Smaller input font */
+    }
+  }
