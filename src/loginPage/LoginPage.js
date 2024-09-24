@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './LoginPage.css'
 
 function LoginPage () {
@@ -19,7 +20,7 @@ function LoginPage () {
             </div>
         </form>
         <div>
-            <a href="#" className="register-btn">Create new account</a>
+            <Link to="/register" className="register-btn">Create new account</Link>
         </div>
     </div>
 </div>
