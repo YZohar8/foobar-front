@@ -24,25 +24,28 @@ export const checkUserByUsername = (username) => {
 // Function to check if a user exists and passwors is ok (for login)
 export const checkUserByUsernameAndPassword = (username, password) => {
     const user = getUserByUsername(username);
-    console.log(user);
     if (user && user.password === password) {
         return true;
     }
-    return false; 
+    return false;
 };
 
-  // Function the user id
-export const getUserIdByUsername = (username) => {
-    return (getUserByUsername(username)).Id;
-};
 
-// Function to get the next available ID
-export const getNextUserId = () => {
-    if (users.length === 0) {
-      return 1; // If no users, start with ID 1
+
+export const getNameByUsername = (username) => {
+    const user = getUserByUsername(username);
+    if (user) {
+        return user.name;
     }
-    // Get the maximum user ID and return the next one
-    const maxId = Math.max(...users.map(user => user.id));
-    return maxId + 1;
-  };
+    return null;
+};
+
+export const getProfilePicByUsername = (username) => {
+    const user = getUserByUsername(username);
+    if (user) {
+        return user.profilePic;
+    }
+    return null;
+    
+};
 

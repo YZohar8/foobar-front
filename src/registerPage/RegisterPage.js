@@ -1,6 +1,7 @@
 import './RegisterPage.css'
-import defult_user from '../pictures/defult_user.jpg'
-import { getNextUserId, addUser, checkUserByUsername } from '../fakeDatabase/usersFakeDatabase.js'
+import AlertRegister from '../alertRegister/AlertRegister.js';
+import defaultPic from '../pictures/defult_user.jpg'
+import {  addUser, checkUserByUsername } from '../fakeDatabase/usersFakeDatabase.js'
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -11,6 +12,7 @@ function RegisterPage() {
   const [confirmPassword, SetConfirmPassword] = useState('');
   const [name, SetName] = useState('');
   const [profilePic, SetProfilePic] = useState('');
+  const [profilePicUrl, setProfilePicUrl] = useState(defaultPic); // For preview and passing to ProfileCard
   const navigate = useNavigate();
 
   const [alertVisible, setAlertVisible] = useState(false);
@@ -20,6 +22,11 @@ function RegisterPage() {
 
 
 
+
+  const openModal = () => {
+    const myModal = new window.bootstrap.Modal(document.getElementById('registerSuccessModal'));
+    myModal.show();
+};
 
 
   const handleRegister = (e) => {
@@ -47,22 +54,29 @@ function RegisterPage() {
       setAlertVisible(false);
     }
 
+    const profileImageUrl = profilePicUrl || defaultPic;
+
     if (setAlertVisible) {
       // Add the user to the temporary database
       const newUser = {
-        Id: getNextUserId(),
         username,
         password,
         name,
-        profilePic: profilePic || defult_user // Use default picture if none uploaded
+        profilePic: profileImageUrl
       };
       addUser(newUser);
+      openModal();
     }
   }
 
-  const handleAlertClose = () => {
-    setAlertVisible(false); // Hide alert
-    navigate('/'); // Navigate to login page
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      SetProfilePic(file); // Store the file
+      setProfilePicUrl(URL.createObjectURL(file)); // Generate a URL for preview and profile
+    } else {
+      setProfilePicUrl(defaultPic); // If no file is selected, use default image
+    }
   };
 
 
@@ -105,24 +119,17 @@ function RegisterPage() {
           </div>
           <div class="mb-3">
             <input type="file" class="form-control" id="profile-pic" accept="image/*"
-              onChange={(e) => SetProfilePic(e.target.files[0])}></input>
+              onChange={handleFileChange}></input>
           </div>
           <div class="d-grid mb-3">
             <button type="submit" class="btn login-btn btn-lg">Register</button>
           </div>
         </form>
-
-        {alertVisible && (
-          <div className="alert alert-success fade show" role="alert">
-            <strong>You have successfully registered</strong> Clicking will take you to the login.
-            <button type="button" className="btn-close" onClick={handleAlertClose} aria-label="Close"></button>
-          </div>
-        )}
-
         <div>
           <Link to="/" className="register-btn">You already have a user</Link>
         </div>
       </div>
+      <AlertRegister header="You have successfully registered" text="Go to the login page to log in to the system" textbtn="login" path="/"/>
     </div>
   );
 }

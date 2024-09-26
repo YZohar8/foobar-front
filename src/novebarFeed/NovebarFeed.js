@@ -8,9 +8,9 @@ function NovebarFeed() {
                 {/* Left side: Facebook icon and text */}
                 <i className="bi bi-facebook"></i>
                 <a className="navbar-brand" href="#">oobar</a>
-                <button type="button" className="btn btn-outline-primary">
-                    <Link to='/' className="bi bi-door-open"></Link>
-                </button>
+                <Link to='/' type="button" className="btn btn-outline-primary">
+                    <i className="bi bi-door-open"></i>
+                </Link>
 
                 {/* Right side: Remove collapse, keep icons visible */}
                 <div className="d-flex justify-content-end flex-grow-1 align-items-center">
