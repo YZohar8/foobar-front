@@ -1,0 +1,57 @@
+.modal-header {
+    background-color: #f8f9fa; 
+}
+
+.modal-body {
+    padding: 25px;
+    text-align: center; 
+}
+
+.modal-footer {
+    justify-content: space-between; 
+}
+
+.btn-primary {
+    background-color: #007bff; 
+    border: none; 
+    margin: 3px; 
+    width: auto; 
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; 
+}
+
+.btn-secondary {
+    background-color: #6c757d; 
+    border: none;
+    width: auto; 
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268; 
+}
+
+img.img-fluid {
+    border-radius: 50%; 
+    max-width: 65%; 
+    height: auto; 
+    margin-top: 3px; 
+}
+
+textarea {
+    width: 100%; 
+}
+.form-control {
+    width: 100%; 
+    max-width: 450px; 
+    padding: 1rem;
+}
+.action-button {
+    background-color: #e9ecef;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }

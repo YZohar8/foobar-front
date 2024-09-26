@@ -62,8 +62,8 @@
 }
 
 .post-image {
-  max-height: 65%;
-  max-width: 65%;
+  max-height: 300px;
+  width: auto;
   height: auto;
   border-radius: 8px;
 }
@@ -77,7 +77,7 @@
 .action-button {
   background-color: #e9ecef;
   border: none;
-  padding: 6px 12px; /* הקטנת ה-padding */
+  padding: 6px 12px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;

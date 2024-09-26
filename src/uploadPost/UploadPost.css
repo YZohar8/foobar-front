@@ -5,11 +5,11 @@
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 15px; /* Padding יכול להישאר כפי שהוא */
-    margin-bottom: 2px; /* מרווח בין פוסטים */
-    top: 50px; /* קובע את המרחק מהחלק העליון של המסך */
-    width: 100%; /* רוחב של 100% כך שזה יתפוס את כל הרוחב */
-    z-index: 1000; /* מבטיח שהקומפוננטה תהיה מעל פוסטים אחרים */
+    padding: 5px; 
+    margin-bottom: 2px; 
+    top: 50px; 
+    width: 100%; 
+    z-index: 1000; 
 }
 
 .user-info {
