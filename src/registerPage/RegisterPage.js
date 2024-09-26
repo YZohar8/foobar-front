@@ -1,9 +1,9 @@
 import './RegisterPage.css'
 import AlertRegister from '../alertRegister/AlertRegister.js';
 import defaultPic from '../pictures/defult_user.jpg'
-import {  addUser, checkUserByUsername } from '../fakeDatabase/usersFakeDatabase.js'
+import { addUser, checkUserByUsername } from '../fakeDatabase/usersFakeDatabase.js'
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function RegisterPage() {
 
@@ -13,9 +13,7 @@ function RegisterPage() {
   const [name, SetName] = useState('');
   const [profilePic, SetProfilePic] = useState('');
   const [profilePicUrl, setProfilePicUrl] = useState(defaultPic); // For preview and passing to ProfileCard
-  const navigate = useNavigate();
 
-  const [alertVisible, setAlertVisible] = useState(false);
   const [alertConfirmPassword, SetAlertConfirmPassword] = useState('');
   const [alertPassword, SetAlertPassword] = useState('');
   const [alertUsername, SetAlertUsername] = useState('');
@@ -26,37 +24,41 @@ function RegisterPage() {
   const openModal = () => {
     const myModal = new window.bootstrap.Modal(document.getElementById('registerSuccessModal'));
     myModal.show();
-};
+  };
 
 
   const handleRegister = (e) => {
     e.preventDefault();
-    setAlertVisible(true);
     SetAlertConfirmPassword('');
     SetAlertPassword('');
     SetAlertUsername('');
 
 
     const passwordIsValid = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/.test(password); // Validate password
+    let flag = false;
 
     if (!passwordIsValid) {
       SetAlertPassword("Password must be between 8 and 15 characters and contain both letters and numbers.");
-      setAlertVisible(false);
+      flag = true;
     }
 
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       SetAlertConfirmPassword("Password verification is not the same as a password.");
-      setAlertVisible(false);
+      flag = true;
     }
 
     if (checkUserByUsername(username)) {
       SetAlertUsername('The username exists in the system.');
-      setAlertVisible(false);
+      flag = true;
+    }
+
+    console.log(flag);
+    if (flag) {
+      return;
     }
 
     const profileImageUrl = profilePicUrl || defaultPic;
 
-    if (setAlertVisible) {
       // Add the user to the temporary database
       const newUser = {
         username,
@@ -66,7 +68,7 @@ function RegisterPage() {
       };
       addUser(newUser);
       openModal();
-    }
+    
   }
 
   const handleFileChange = (e) => {
@@ -85,6 +87,7 @@ function RegisterPage() {
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
       <div class="login-container text-center">
         <h2 class="mb-4">Registration</h2>
+        <img src={profilePicUrl} alt="Profile Preview" className="profile-pic" />
         <form onSubmit={handleRegister}>
           <div class="mb-3">
             <input type="email" class="form-control" id="username" placeholder="Username" required
@@ -121,15 +124,15 @@ function RegisterPage() {
             <input type="file" class="form-control" id="profile-pic" accept="image/*"
               onChange={handleFileChange}></input>
           </div>
-          <div class="d-grid mb-3">
-            <button type="submit" class="btn login-btn btn-lg">Register</button>
+          <div className="d-grid mb-3">
+            <button type="submit" className="btn login-btn btn-lg">Register</button>
           </div>
         </form>
         <div>
-          <Link to="/" className="register-btn">You already have a user</Link>
+          <Link to="/" className="register-btn">I already have a user</Link>
         </div>
       </div>
-      <AlertRegister header="You have successfully registered" text="Go to the login page to log in to the system" textbtn="login" path="/"/>
+      <AlertRegister header="You have successfully registered" text="Go to the login page to log in to the system" textbtn="login" path="/" />
     </div>
   );
 }

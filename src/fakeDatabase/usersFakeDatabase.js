@@ -1,5 +1,3 @@
-
-
 const users = []; // This acts as our in-memory database
 
 // Function to check if a user exists (for register)

@@ -1,0 +1,73 @@
+.post-upload {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px; /* Padding יכול להישאר כפי שהוא */
+    margin-bottom: 2px; /* מרווח בין פוסטים */
+    top: 50px; /* קובע את המרחק מהחלק העליון של המסך */
+    width: 100%; /* רוחב של 100% כך שזה יתפוס את כל הרוחב */
+    z-index: 1000; /* מבטיח שהקומפוננטה תהיה מעל פוסטים אחרים */
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px; /* מרווח בין המשתמש לפוסט */
+}
+
+.user-image {
+    width: 40px; /* גודל התמונה של המשתמש */
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px; /* מרווח בין התמונה לשם */
+}
+
+.user-name {
+    font-weight: bold; /* שם המשתמש בולט */
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column; /* תצוגה אנכית של השדות */
+}
+
+.post-text {
+    width: 100%; /* רוחב השדה של הפוסט */
+    height: 70px; /* גובה השדה של הפוסט */
+    padding: 10px; /* Padding בשדה */
+    border: 1px solid #ddd; /* גבול לשדה */
+    border-radius: 5px; /* פינות מעוגלות */
+    resize: none; /* למנוע שינויים בגובה של הטקסט */
+    margin-bottom: 2px; /* מרווח בין השדות */
+}
+
+.image-input {
+    margin-bottom: 2px; /* מרווח בין שדה התמונה לפוסט */
+}
+
+.preview-image {
+    margin: 2px 0; /* מרווח לתצוגה מקדימה */
+}
+
+.preview-image img {
+    max-width: 100%; /* התמונה המקדימה תתאים לרוחב */
+    border-radius: 5px; /* פינות מעוגלות */
+}
+
+.submit-button {
+    align-self: flex-end; /* מיקום הכפתור בצד ימין */
+    background-color: #007bff; /* צבע הכפתור */
+    color: #fff; /* צבע טקסט הכפתור */
+    padding: 5px 10px; /* Padding לכפתור */
+    border: none; /* ללא גבול */
+    border-radius: 5px; /* פינות מעוגלות */
+    cursor: pointer; /* חץ בעת המעבר עם העכבר */
+    transition: background-color 0.3s; /* מעבר צבע */
+}
+
+.submit-button:hover {
+    background-color: #0056b3; /* צבע כפתור כשמעבירים מעליו את העכבר */
+}
