@@ -24,3 +24,12 @@
     max-width: 400px; /* Optional: sets a max width */
     padding: 1rem;
 }
+.profile-pic {
+  position: absolute;
+  top: 10px; /* Adjust to position it at the top */
+  right: 10px; /* Adjust to position it on the right */
+  width: 100px; /* Adjust the size as necessary */
+  height: 100px; /* Adjust the size as necessary */
+  border-radius: 50%; /* Make it circular */
+  object-fit: cover; /* Ensure the image fits well within the circle */
+}

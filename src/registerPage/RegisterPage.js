@@ -1,8 +1,9 @@
 import './RegisterPage.css'
-import defult_user from '../pictures/defult_user.jpg'
-import { getNextUserId, addUser, checkUserByUsername } from '../fakeDatabase/usersFakeDatabase.js'
+import AlertRegister from '../alertRegister/AlertRegister.js';
+import defaultPic from '../pictures/defult_user.jpg'
+import { addUser, checkUserByUsername } from '../fakeDatabase/usersFakeDatabase.js'
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function RegisterPage() {
 
@@ -11,9 +12,8 @@ function RegisterPage() {
   const [confirmPassword, SetConfirmPassword] = useState('');
   const [name, SetName] = useState('');
   const [profilePic, SetProfilePic] = useState('');
-  const navigate = useNavigate();
+  const [profilePicUrl, setProfilePicUrl] = useState(defaultPic); // For preview and passing to ProfileCard
 
-  const [alertVisible, setAlertVisible] = useState(false);
   const [alertConfirmPassword, SetAlertConfirmPassword] = useState('');
   const [alertPassword, SetAlertPassword] = useState('');
   const [alertUsername, SetAlertUsername] = useState('');
@@ -21,48 +21,64 @@ function RegisterPage() {
 
 
 
+  const openModal = () => {
+    const myModal = new window.bootstrap.Modal(document.getElementById('registerSuccessModal'));
+    myModal.show();
+  };
+
 
   const handleRegister = (e) => {
     e.preventDefault();
-    setAlertVisible(true);
     SetAlertConfirmPassword('');
     SetAlertPassword('');
     SetAlertUsername('');
 
 
     const passwordIsValid = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/.test(password); // Validate password
+    let flag = false;
 
     if (!passwordIsValid) {
       SetAlertPassword("Password must be between 8 and 15 characters and contain both letters and numbers.");
-      setAlertVisible(false);
+      flag = true;
     }
 
-    if (password != confirmPassword) {
+    if (password !== confirmPassword) {
       SetAlertConfirmPassword("Password verification is not the same as a password.");
-      setAlertVisible(false);
+      flag = true;
     }
 
     if (checkUserByUsername(username)) {
       SetAlertUsername('The username exists in the system.');
-      setAlertVisible(false);
+      flag = true;
     }
 
-    if (setAlertVisible) {
+    console.log(flag);
+    if (flag) {
+      return;
+    }
+
+    const profileImageUrl = profilePicUrl || defaultPic;
+
       // Add the user to the temporary database
       const newUser = {
-        Id: getNextUserId(),
         username,
         password,
         name,
-        profilePic: profilePic || defult_user // Use default picture if none uploaded
+        profilePic: profileImageUrl
       };
       addUser(newUser);
-    }
+      openModal();
+    
   }
 
-  const handleAlertClose = () => {
-    setAlertVisible(false); // Hide alert
-    navigate('/'); // Navigate to login page
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      SetProfilePic(file); // Store the file
+      setProfilePicUrl(URL.createObjectURL(file)); // Generate a URL for preview and profile
+    } else {
+      setProfilePicUrl(defaultPic); // If no file is selected, use default image
+    }
   };
 
 
@@ -71,6 +87,7 @@ function RegisterPage() {
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
       <div class="login-container text-center">
         <h2 class="mb-4">Registration</h2>
+        <img src={profilePicUrl} alt="Profile Preview" className="profile-pic" />
         <form onSubmit={handleRegister}>
           <div class="mb-3">
             <input type="email" class="form-control" id="username" placeholder="Username" required
@@ -105,24 +122,17 @@ function RegisterPage() {
           </div>
           <div class="mb-3">
             <input type="file" class="form-control" id="profile-pic" accept="image/*"
-              onChange={(e) => SetProfilePic(e.target.files[0])}></input>
+              onChange={handleFileChange}></input>
           </div>
-          <div class="d-grid mb-3">
-            <button type="submit" class="btn login-btn btn-lg">Register</button>
+          <div className="d-grid mb-3">
+            <button type="submit" className="btn login-btn btn-lg">Register</button>
           </div>
         </form>
-
-        {alertVisible && (
-          <div className="alert alert-success fade show" role="alert">
-            <strong>You have successfully registered</strong> Clicking will take you to the login.
-            <button type="button" className="btn-close" onClick={handleAlertClose} aria-label="Close"></button>
-          </div>
-        )}
-
         <div>
-          <Link to="/" className="register-btn">You already have a user</Link>
+          <Link to="/" className="register-btn">I already have a user</Link>
         </div>
       </div>
+      <AlertRegister header="You have successfully registered" text="Go to the login page to log in to the system" textbtn="login" path="/" />
     </div>
   );
 }

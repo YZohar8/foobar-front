@@ -1,5 +1,4 @@
 import './NovebarFeed.css'
-import { Link } from 'react-router-dom';
 
 function NovebarFeed() {
     return (
@@ -7,11 +6,7 @@ function NovebarFeed() {
             <div className="container-fluid d-flex align-items-center">
                 {/* Left side: Facebook icon and text */}
                 <i className="bi bi-facebook"></i>
-                <a className="navbar-brand" href="#">oobar</a>
-                <button type="button" className="btn btn-outline-primary">
-                    <Link to='/' className="bi bi-door-open"></Link>
-                </button>
-
+                <a className="navbar-brand">oobar</a>
                 {/* Right side: Remove collapse, keep icons visible */}
                 <div className="d-flex justify-content-end flex-grow-1 align-items-center">
                     <form className="d-flex" role="search">

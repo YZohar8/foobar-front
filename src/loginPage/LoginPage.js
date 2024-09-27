@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {checkUserByUsernameAndPassword, getUserIdByUsername} from '../fakeDatabase/usersFakeDatabase.js'
+import {checkUserByUsernameAndPassword} from '../fakeDatabase/usersFakeDatabase.js'
 import './LoginPage.css'
 
 function LoginPage() {
@@ -13,7 +13,7 @@ function LoginPage() {
         e.preventDefault();
         console.log(checkUserByUsernameAndPassword(email, password));
         if (checkUserByUsernameAndPassword(email, password)) {
-            navigate('/feed', { state: { userId: getUserIdByUsername(email) } });
+            navigate('/feed', { state: { username: email } });
         } else {
             setErrorMessage("username or password is uncorrect! try again.");
         }
