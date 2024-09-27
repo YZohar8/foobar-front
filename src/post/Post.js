@@ -29,18 +29,16 @@ function Post({ realusername, Id, username, name, profilePic, postText, postPic,
   const [showModal, setShowModal] = useState(false);
 
 
+
   const handleShow = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);    
+  const handleClose = () => setShowModal(false);
 
   // Function to toggle the like state
   const changeLike = () => {
     setLike(!like); // Flip the like state
   };
 
-  const handleSave = (newText, newPic) => {
-    setCurrentText(newText); 
-    setCurrentPic(newPic); 
-  };
+
 
   return (
     <div className="post-card">
@@ -52,13 +50,13 @@ function Post({ realusername, Id, username, name, profilePic, postText, postPic,
         </div>
         {/* Show the edit icon if the current user is the post's author */}
         {isEdit && (<i className="bi bi-pencil edit-post-button" onClick={handleShow}></i>)}
-        <EditPostModel show={showModal} handleClose={handleClose} username={realusername} Id={Id} postText={postText} postPic={postPic}
-        onSave={handleSave}/>
+        <EditPostModel show={showModal} handleClose={handleClose} username={realusername} Id={Id} postText={postText} postPic={postPic} />
       </div>
+      <hr />
       {/* Post content */}
       <div className="post-content">
-        <p className="post-text">{postText}</p> {/* Display the post text */}
         {postPic && <img src={postPic} alt="Post" className="post-image" />} {/* Display post image if available */}
+        <p className="post-text post-text-to-show">{postText}</p> {/* Display the post text */}
       </div>
       <hr />
       <div className="post-actions">

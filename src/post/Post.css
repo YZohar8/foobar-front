@@ -51,21 +51,35 @@
 }
 
 .post-content {
-  margin: 8px 0; 
+  display: flex;
+  align-items: flex-start; /* מוודא שהתמונה והטקסט יתחילו בקו העליון */
+  gap: 15px; /* רווח בין התמונה לטקסט */
+  width: 100%;
 }
 
 .post-text {
-  margin-bottom: 10px; 
   color: #333;
-  font-size: 0.9rem; 
+  font-size: 0.9rem;
   text-align: left;
+  word-wrap: break-word; /* שובר מילים ארוכות */
+  white-space: pre-wrap; /* שומר על ירידות שורה */
+  overflow-wrap: break-word; /* מבטיח ששום דבר לא יוצא מהקופסה */
+  flex-grow: 1; /* מאפשר לטקסט להתפשט ולתפוס את שאר הרוחב */
+  
+  max-height: 300px; /* מגביל את גובה הטקסט */
+  overflow-y: auto;
+}
+
+.post-text-to-show {
+  height: 300px;
 }
 
 .post-image {
-  max-height: 300px;
-  width: auto;
-  height: auto;
+  max-height: 300px; /* Limit the image height */
+  max-width: 300px;  /* Limit the image width */
+  margin-right: 15px; /* Add space between the image and the text */
   border-radius: 8px;
+  object-fit: cover;
 }
 
 .post-actions {

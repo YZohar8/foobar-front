@@ -1,12 +1,13 @@
 import { updatePost } from '../fakeDatabase/postsFakeDatabase.js'
 import React, { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
-import './EditPostModel.css'
+import { Modal, Form } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import './EditPostModel.css'
 
 
 
-function EditPostModel({ show, handleClose, username, Id, postText, postPic, onSave}) {
+
+function EditPostModel({ show, handleClose, username, Id, postText, postPic}) {
   const [editPostText, setEditPostText] = useState(postText);
   const [editPostPic, setEditPostPic] = useState(postPic);
   const navigate = useNavigate();
@@ -22,15 +23,11 @@ function EditPostModel({ show, handleClose, username, Id, postText, postPic, onS
     }
 
     handleClose();
-    onSave(editPostText, editPostPic);
+    navigate('/feed', { state: { username: username } });
+    
   };
 
-  useEffect(() => {
-    if (show) {
-        setEditPostText(postText);
-        setEditPostPic(postPic);
-    }
-}, [show, postText, postPic]); // Dependency array to run when 'show' changes
+
 
 
   return (
