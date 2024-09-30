@@ -1,0 +1,111 @@
+.modal-content {
+  border-radius: 10px;
+  padding: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+}
+
+.responses-container {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  flex-grow: 1;
+}
+
+.response-item {
+  display: flex;
+  align-items: flex-start; /* Align items to the start */
+  margin-bottom: 15px;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative; /* Added for positioning */
+}
+
+.response-user-image {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.response-user-info {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  margin-right: 10px; /* Space between user info and response */
+  flex-grow: 1; /* Allow to fill available space */
+  text-align: left; /* Align text to the left */
+}
+
+.response-time {
+  font-size: 0.75rem;
+  color: #999;
+  margin: 0;
+  position: absolute; /* Change to absolute for positioning */
+  bottom: 5px; /* Align to the bottom */
+  right: 10px; /* Align to the right */
+}
+
+.response-content {
+  flex-grow: 1; /* Allow to fill available space */
+}
+
+.response-username {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.response-separator {
+  border-top: 1px solid #ccc; /* Divider line */
+  margin: 5px 0; /* Reduced margin around the line */
+  width: 100%; /* Full width of the container */
+}
+
+.response-text {
+  margin: 10px 0 0; /* Add margin above the text */
+  font-size: 0.9rem;
+  word-wrap: break-word;
+}
+
+.bi-plus {
+  font-size: 24px;
+  cursor: pointer;
+  color: #007bff;
+}
+
+.bi-plus:hover {
+  color: #0056b3;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-top: none;
+}
+
+.edit-placeholder {
+  width: 24px; /* Same size as icon */
+  height: 24px;
+  visibility: hidden; /* Keeps space occupied without showing anything */
+}
+
+.response-edit-or-delete {
+  font-size: 16px;
+  color: #6c757d;
+  height: 50px;
+  width: 50px;
+  border-radius: 25%;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+}
+
+.response-edit-or-delete:hover {
+  background-color: #6c757d;
+  border-color: #5a6268;
+  color: white;
+}

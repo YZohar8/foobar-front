@@ -1,13 +1,13 @@
 import React, { useState } from 'react'; // Ensure useState is properly imported from React
 import './Post.css'; // Import the CSS for Post styling
 import EditPostModel from '../editPostModel/EditPostModel.js';
+import PostResponses from '../postResponses/PostResponses.js';
+import { useNavigate } from 'react-router-dom';
 
 // Function to calculate how much time has passed since the post was created
 function timeSince(date) {
   const seconds = Math.floor((new Date() - date) / 1000); // Calculate the difference in seconds
-  console.log(seconds);
   const minutes = Math.floor(seconds / 60); // Convert to minutes
-  console.log(minutes);
   const hours = Math.floor(minutes / 60); // Convert to hours
   const days = Math.floor(hours / 24); // Convert to days
   const months = Math.floor(days / 28); // Convert to months
@@ -24,19 +24,35 @@ function timeSince(date) {
 
 // Post component to display individual posts
 function Post({ realusername, Id, username, name, profilePic, postText, postPic, time }) {
+
   const [like, setLike] = useState(false); // State to track whether the post is liked
   const isEdit = (realusername === username); // Check if the logged-in user is the post author
-  const [showModal, setShowModal] = useState(false);
+
+  const [showModalEdit, setShowModalEdit] = useState(false);
+  const [showModalResponses, setShowModalResponses] = useState(false);
+  const navigate = useNavigate();
 
 
 
-  const handleShow = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
+
+
+  const handleShowEdit = () => setShowModalEdit(true);
+  const handleCloseEdit = () => setShowModalEdit(false);
+
+  const handleShowResponses = () => setShowModalResponses(true);
+  const handleCloseResponse = () => setShowModalResponses(false);
 
   // Function to toggle the like state
   const changeLike = () => {
     setLike(!like); // Flip the like state
   };
+
+  const handleDeletePost = () => {
+    if (true) {
+      // error messege
+    }
+    navigate('/feed', { state: { username: username}});
+  }
 
 
 
@@ -49,8 +65,9 @@ function Post({ realusername, Id, username, name, profilePic, postText, postPic,
           <span className="post-time">{timeSince(new Date(time))}</span> {/* Display how long ago the post was made */}
         </div>
         {/* Show the edit icon if the current user is the post's author */}
-        {isEdit && (<i className="bi bi-pencil edit-post-button" onClick={handleShow}></i>)}
-        <EditPostModel show={showModal} handleClose={handleClose} username={realusername} Id={Id} postText={postText} postPic={postPic} />
+        {isEdit && (<i className="bi bi-pencil edit-post-button" onClick={handleShowEdit}></i>)}
+        {isEdit && (<i class="bi bi-trash3-fill edit-post-button" onClick={() => handleDeletePost(Id)}></i>)}
+        <EditPostModel show={showModalEdit} handleClose={handleCloseEdit} username={realusername} Id={Id} postText={postText} postPic={postPic} />
       </div>
       <hr />
       {/* Post content */}
@@ -66,8 +83,9 @@ function Post({ realusername, Id, username, name, profilePic, postText, postPic,
         ) : (
           <i className="bi bi-hand-thumbs-up-fill action-button red" onClick={changeLike}></i> // Liked state (filled icon)
         )}
-        <i className="bi bi-chat action-button"></i> {/* Comment button (no functionality added yet) */}
-        <i className="bi bi-share action-button"></i> {/* Share button (no functionality added yet) */}
+        <i className="bi bi-chat action-button" onClick={handleShowResponses}></i>
+        <PostResponses show={showModalResponses} handleClose={handleCloseResponse} postId={Id} username={realusername}/>
+        <i className="bi bi-share action-button"></i>
       </div>
     </div>
   );

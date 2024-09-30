@@ -3,6 +3,7 @@ const posts = [];
 // Function to add a Post to the database
 export const addPost = (post) => {
     posts.push(post);
+    return true;
 };
 
 export const nextIdPost = () => {
