@@ -1,8 +1,15 @@
 import './LeftMenuFeed.css'
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function LeftMenuFeed() {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        navigate('/loading', { state: { destination: '/' } });
+    }
+
+
     return (
         <div className="sidebar">
             <h5 className="menu-header">Menu</h5>
@@ -37,11 +44,11 @@ function LeftMenuFeed() {
                         <span>Settings</span>
                     </a>
                 </li>
-                <li className="nav-item">
-                    <Link to='/' className="nav-link">
+                <li className="nav-item" on onClick={() => handleLogout()}>
+                    <a className="nav-link">
                         <i className="bi bi-box-arrow-right icon"></i>
                         <span>Logout</span>
-                    </Link>
+                    </a>
                 </li>
             </ul>
         </div>

@@ -1,7 +1,7 @@
 import { getNameByUsername, getProfilePicByUsername } from '../fakeDatabase/usersFakeDatabase.js';
-import { deleteResponseById} from '../fakeDatabase/responsesFakeDatabase.js';
+import { deleteResponseById } from '../fakeDatabase/responsesFakeDatabase.js';
 import EditResponse from '../editResponse/EditResponse.js';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 
 function timeSince(date) {
@@ -21,7 +21,7 @@ function timeSince(date) {
 }
 
 
-function ShowResponse ({response, refresh, username}) {
+function ShowResponse({ response, refresh, username }) {
     const [showModalEditResponse, setShowModalEditResponse] = useState(false);
     const responseId = response.Id;
 
@@ -39,29 +39,31 @@ function ShowResponse ({response, refresh, username}) {
 
     return (
         <div key={responseId} className="response-item">
-                            <img src={getProfilePicByUsername(response.username)} alt={`${getNameByUsername(response.username)}'s profile`} className="response-user-image" />
-                            <div className="response-user-info">
-                                <span className="response-username">{getNameByUsername(response.username)}</span>
-                                <span className="response-time">{timeSince(response.time)}</span>
-                                <div className="response-separator"></div>
-                                <p className="response-text">{response.text}</p>
+            <img src={getProfilePicByUsername(response.username)} alt={`${getNameByUsername(response.username)}'s profile`} className="response-user-image" />
+            <div className="response-user-info">
+                <span className="response-username">{getNameByUsername(response.username)}</span>
+                <span className="response-time">{timeSince(response.time)}</span>
+                <div className="response-separator"></div>
+                <p className="response-text">{response.text}</p>
 
-                                <div className="response-edit">
-                                    {(response.username === username) ? (
-                                        <div>
-                                            <i className="bi bi-pencil-square response-edit-or-delete" onClick={handleShowEditResponse} ></i>
-                                            <i class="bi bi-trash3-fill response-edit-or-delete" onClick={() => handleDeleteResponse(responseId)}></i>
-                                        </div>
-
-                                    ) : (
-                                        <div className="edit-placeholder"></div>
-                                    )}
-                                </div>
-                                    <EditResponse responseId={responseId} responseText={response.text} refresh={refresh} 
-                                    handleClose={handleCloseEditResponse} show={showModalEditResponse
-                                }/>
-                            </div>
+                <div className="response-edit">
+                    {(response.username === username) ? (
+                        <div>
+                            <i className="bi bi-pencil-square response-edit-or-delete" onClick={handleShowEditResponse}
+                                style={{ margin: '5px' }} ></i>
+                            <i class="bi bi-trash3-fill response-edit-or-delete" onClick={() => handleDeleteResponse(responseId)}
+                                style={{ margin: '5px' }}></i>
                         </div>
+
+                    ) : (
+                        <div className="edit-placeholder"></div>
+                    )}
+                </div>
+                <EditResponse responseId={responseId} responseText={response.text} refresh={refresh}
+                    handleClose={handleCloseEditResponse} show={showModalEditResponse
+                    } />
+            </div>
+        </div>
     );
 }
 

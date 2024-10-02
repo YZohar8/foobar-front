@@ -41,7 +41,10 @@ export const getNameByUsername = (username) => {
 export const getProfilePicByUsername = (username) => {
     const user = getUserByUsername(username);
     if (user) {
-        return user.profilePic;
+        if (user.profilePic) {
+            return URL.createObjectURL(user.profilePic);
+        }
+        return user.profilePicUrl;
     }
     return null;
     

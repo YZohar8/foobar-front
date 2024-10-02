@@ -1,0 +1,29 @@
+.error-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px 20px;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .close-error-btn {
+    background: none;
+    border: none;
+    color: #721c24;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 15px;
+    cursor: pointer;
+  }
+  
+  .close-error-btn:hover {
+    color: #f5c6cb;
+  }

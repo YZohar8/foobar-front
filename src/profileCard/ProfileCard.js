@@ -2,7 +2,7 @@ import React from 'react';
 import './ProfileCard.css';
 import defaultPic from '../pictures/defult_user.jpg'
 
-function ProfileCard({ name, imageUrl, username}) {
+function ProfileCard({ name, imageUrl}) {
 
 
   return (

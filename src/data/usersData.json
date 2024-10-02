@@ -1,0 +1,30 @@
+[
+  {
+    "username": "jane.doe@mail.com",
+    "password": "Password123",
+    "name": "Jane Doe",
+    "profilePicUrl": "/publicPictures/profilePic_1.jpg",
+    "profilePic": null
+  },
+  {
+    "username": "john.smith@mail.com",
+    "password": "BasketballFan88",
+    "name": "John Smith",
+    "profilePicUrl": "/publicPictures/profilePic_2.jpg",
+    "profilePic": null
+  },
+  {
+    "username": "alex.jones@mail.com",
+    "password": "Olympiacos2024",
+    "name": "Alex Jones",
+    "profilePicUrl": "/publicPictures/profilePic_3.jpg",
+    "profilePic": null
+  },
+  {
+    "username": "mike.brown@mail.com",
+    "password": "RealMadrid2023",
+    "name": "Mike Brown",
+    "profilePicUrl": "/publicPictures/profilePic_4.jpg",
+    "profilePic": null
+  }
+]

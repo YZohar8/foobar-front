@@ -57,14 +57,14 @@ function RegisterPage() {
       return;
     }
 
-    const profileImageUrl = profilePicUrl || defaultPic;
-
+    const profileImage = profilePic || defaultPic;
       // Add the user to the temporary database
       const newUser = {
         username,
         password,
         name,
-        profilePic: profileImageUrl
+        profilePic: profileImage,
+        profilePicUrl: null
       };
       addUser(newUser);
       openModal();

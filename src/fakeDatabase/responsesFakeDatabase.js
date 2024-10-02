@@ -9,6 +9,7 @@ export const getNextResponseId = () => {
     return responses.length + 1;
 }
 
+
 export const getResponsesById = (Id) => {
     let postResponses = responses.filter(response => response.postId === Id);
     if (postResponses) {
@@ -17,8 +18,6 @@ export const getResponsesById = (Id) => {
             postResponses.sort((a, b) => b.time - a.time);
         }
     }
-        console.log(postResponses);
-        console.log(responses);
         return postResponses;
 
 }
