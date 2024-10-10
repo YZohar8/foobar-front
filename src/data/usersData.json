@@ -26,5 +26,12 @@
     "name": "Mike Brown",
     "profilePicUrl": "/publicPictures/profilePic_4.jpg",
     "profilePic": null
+  },
+  {
+    "username": "www@example.com",
+    "password": "0102030405z",
+    "name": "example",
+    "profilePicUrl": "/publicPictures/profilePic_5.jpg",
+    "profilePic": null
   }
 ]

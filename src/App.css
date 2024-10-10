@@ -1,0 +1,11 @@
+body {
+    overflow: scroll; 
+    background-color: lightcyan;
+}
+
+body::-webkit-scrollbar {
+    display: none; 
+}
+body.dark-mode body{
+    background-color: #242526;
+}

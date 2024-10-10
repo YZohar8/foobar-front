@@ -2,6 +2,7 @@ import { getNameByUsername, getProfilePicByUsername } from '../fakeDatabase/user
 import { deleteResponseById } from '../fakeDatabase/responsesFakeDatabase.js';
 import EditResponse from '../editResponse/EditResponse.js';
 import React, { useState } from 'react';
+import './ShowResponse.css'
 
 
 function timeSince(date) {
@@ -49,9 +50,9 @@ function ShowResponse({ response, refresh, username }) {
                 <div className="response-edit">
                     {(response.username === username) ? (
                         <div>
-                            <i className="bi bi-pencil-square response-edit-or-delete" onClick={handleShowEditResponse}
+                            <i className="bi bi-pencil-square response-edit-or-delete dark-but" onClick={handleShowEditResponse}
                                 style={{ margin: '5px' }} ></i>
-                            <i class="bi bi-trash3-fill response-edit-or-delete" onClick={() => handleDeleteResponse(responseId)}
+                            <i class="bi bi-trash3-fill response-edit-or-delete dark-but" onClick={() => handleDeleteResponse(responseId)}
                                 style={{ margin: '5px' }}></i>
                         </div>
 

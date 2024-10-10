@@ -29,7 +29,7 @@ function PostResponses({ show, handleClose, postId, username }) {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>responses</Modal.Title>
+                <Modal.Title className='model-title'>responses</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className="responses-container">

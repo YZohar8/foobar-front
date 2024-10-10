@@ -2,15 +2,15 @@
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  margin: 10px 0; /* הקטנת המרווחים */
-  padding: 10px; /* הקטנת ה-padding */
+  margin: 10px 0; 
+  padding: 10px; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .post-header {
   display: flex;
-  align-items: center; /* Aligns items vertically center */
-  justify-content: space-between; /* Spaces out the content */
+  align-items: center; 
+  justify-content: space-between; 
 }
 
 .post-user-image {
@@ -21,14 +21,14 @@
 }
 
 .post-user-info {
-  flex-grow: 1; /* Allow this div to take up available space */
+  flex-grow: 1; 
   display: flex;
-  flex-direction: column; /* Stack name and time vertically */
+  flex-direction: column; 
   align-items: flex-start;
 }
 
 .post-user-name {
-  font-weight: bold; /* Makes the user name bold */
+  font-weight: bold; 
 }
 
 .post-time {
@@ -53,8 +53,8 @@
 
 .post-content {
   display: flex;
-  align-items: flex-start; /* מוודא שהתמונה והטקסט יתחילו בקו העליון */
-  gap: 15px; /* רווח בין התמונה לטקסט */
+  align-items: flex-start; 
+  gap: 15px; 
   width: 100%;
 }
 
@@ -62,12 +62,11 @@
   color: #333;
   font-size: 0.9rem;
   text-align: left;
-  word-wrap: break-word; /* שובר מילים ארוכות */
-  white-space: pre-wrap; /* שומר על ירידות שורה */
-  overflow-wrap: break-word; /* מבטיח ששום דבר לא יוצא מהקופסה */
-  flex-grow: 1; /* מאפשר לטקסט להתפשט ולתפוס את שאר הרוחב */
-  
-  max-height: 300px; /* מגביל את גובה הטקסט */
+  word-wrap: break-word; 
+  white-space: pre-wrap; 
+  overflow-wrap: break-word; 
+  flex-grow: 1; 
+  max-height: 300px; 
   overflow-y: auto;
 }
 
@@ -76,17 +75,18 @@
 }
 
 .post-image {
-  max-height: 300px; /* Limit the image height */
-  max-width: 300px;  /* Limit the image width */
-  margin-right: 15px; /* Add space between the image and the text */
+  max-height: 300px; 
+  max-width: 300px;
+  min-height: 300px;  
+  margin-right: 15px; 
   border-radius: 8px;
   object-fit: cover;
 }
 
 .post-actions {
   display: flex;
-  justify-content: space-around; /* Space out the buttons evenly */
-  margin-top: 8px; /* הקטנת המרווחים */
+  justify-content: space-around; 
+  margin-top: 8px; 
 }
 
 .action-button {
@@ -104,6 +104,39 @@
 .action-button:hover {
   background-color: #d3d3d3;
 }
-.red {
-  color: red;
+
+
+/*dark mode*/
+body.dark-mode .post-card {
+  background-color: #444; 
+  border: 1px solid #666; 
+}
+
+body.dark-mode .post-user-info {
+  color: #f1f1f1; 
+}
+
+body.dark-mode .post-time {
+  color: #bbb; 
+}
+
+body.dark-mode .edit-post-button {
+  background-color: #007bff; 
+  color: #fff; 
+}
+
+body.dark-mode .edit-post-button:hover {
+  background-color: #0056b3; 
+}
+
+body.dark-mode .post-text {
+  color: #f1f1f1; 
+}
+
+body.dark-mode .post-actions .action-button {
+  background-color: #555; 
+}
+
+body.dark-mode .post-actions .action-button:hover {
+  background-color: #666; 
 }

@@ -11,6 +11,7 @@ function LoginPage() {
     const navigate = useNavigate();
 
 
+
     const handleLogin = (e) => {
         e.preventDefault();
         console.log(checkUserByUsernameAndPassword(email, password));
@@ -18,7 +19,6 @@ function LoginPage() {
             navigate('/loading', { state: { destination: '/feed', state: { username: email } } });
         } else {
             setErrorMessage("username or password is uncorrect! try again.");
-            
         }
     }
 

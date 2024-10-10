@@ -11,7 +11,9 @@ export const nextIdPost = () => {
 };
 
 export const getPosts = () => {
-    let postList = posts.filter((post) => post.active === true);
+    let postList = posts
+        .filter((post) => post.active === true)
+        .map(post => ({ ...post })); 
     
     if (postList.length > 0) {
         postList = postList.map(post => {
@@ -36,7 +38,7 @@ export const updatePost = (Id, postText, postPic) => {
     const post = posts.find((post) => post.Id === Id);
     if (post) {
         post.postText = postText;
-        post.postPic = postPic;
+        post.postPicFile = postPic;
         return true;
     }
     return false;

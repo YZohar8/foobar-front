@@ -59,3 +59,34 @@
         margin: 0 10px; 
     }
 }
+
+/* dark mode*/
+body.dark-mode .modal-header {
+    background-color: #444; 
+}
+
+body.dark-mode .modal-title,
+body.dark-mode .form-label {
+    color: #f8f9fa; 
+}
+
+body.dark-mode .form-control {
+    border: 1px solid #666; 
+    background-color: #555; 
+    color: #f8f9fa; 
+}
+
+body.dark-mode .form-control:focus {
+    border-color: #007bff; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.7); 
+}
+
+body.dark-mode .bi-trash,
+body.dark-mode .bi-floppy {
+    color: #00aced; 
+}
+
+body.dark-mode .bi-trash:hover, 
+body.dark-mode .bi-floppy:hover {
+    color: #009bb5; 
+}

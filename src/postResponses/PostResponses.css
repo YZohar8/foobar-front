@@ -16,13 +16,13 @@
 
 .response-item {
   display: flex;
-  align-items: flex-start; /* Align items to the start */
+  align-items: flex-start; 
   margin-bottom: 15px;
   background-color: #f1f1f1;
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  position: relative; /* Added for positioning */
+  position: relative; 
 }
 
 .response-user-image {
@@ -34,23 +34,23 @@
 
 .response-user-info {
   display: flex;
-  flex-direction: column; /* Stack items vertically */
-  margin-right: 10px; /* Space between user info and response */
-  flex-grow: 1; /* Allow to fill available space */
-  text-align: left; /* Align text to the left */
+  flex-direction: column; 
+  margin-right: 10px; 
+  flex-grow: 1; 
+  text-align: left; 
 }
 
 .response-time {
   font-size: 0.75rem;
   color: #999;
   margin: 0;
-  position: absolute; /* Change to absolute for positioning */
-  bottom: 5px; /* Align to the bottom */
-  right: 10px; /* Align to the right */
+  position: absolute; 
+  bottom: 5px; 
+  right: 10px; 
 }
 
 .response-content {
-  flex-grow: 1; /* Allow to fill available space */
+  flex-grow: 1; 
 }
 
 .response-username {
@@ -60,13 +60,13 @@
 }
 
 .response-separator {
-  border-top: 1px solid #ccc; /* Divider line */
-  margin: 5px 0; /* Reduced margin around the line */
-  width: 100%; /* Full width of the container */
+  border-top: 1px solid #ccc; 
+  margin: 5px 0; 
+  width: 100%; 
 }
 
 .response-text {
-  margin: 10px 0 0; /* Add margin above the text */
+  margin: 10px 0 0; 
   font-size: 0.9rem;
   word-wrap: break-word;
 }
@@ -89,9 +89,9 @@
 }
 
 .edit-placeholder {
-  width: 24px; /* Same size as icon */
+  width: 24px; 
   height: 24px;
-  visibility: hidden; /* Keeps space occupied without showing anything */
+  visibility: hidden; 
 }
 
 .response-edit-or-delete {
@@ -107,5 +107,39 @@
 .response-edit-or-delete:hover {
   background-color: #6c757d;
   border-color: #5a6268;
+  color: white;
+}
+
+/* dark mode */
+body.dark-mode .modal-content {
+  background-color: #343a40; 
+  color: #f8f9fa; 
+}
+
+body.dark-mode .response-item {
+  background-color: #495057; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+}
+
+body.dark-mode .response-time {
+  color: #bbb; 
+}
+
+body.dark-mode .response-edit-or-delete {
+  background-color: #6c757d; 
+}
+
+body.dark-mode .response-edit-or-delete:hover {
+  background-color: #5a6268; 
+}
+
+body.dark-mode .bi-plus {
+  color: #007bff; 
+}
+
+body.dark-mode .bi-plus:hover {
+  color: #0056b3; 
+}
+body.dark-mode .model-title {
   color: white;
 }

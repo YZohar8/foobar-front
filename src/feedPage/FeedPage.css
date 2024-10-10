@@ -1,3 +1,13 @@
 .maindiv {
     padding-top: 80px
 }
+
+.main-back {
+    background-color: lightcyan;
+}
+/* dark mode */
+body.dark-mode .main-back {
+    background-color: #242526; 
+    color: #e4e6eb; 
+}
+

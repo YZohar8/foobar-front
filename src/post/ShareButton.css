@@ -37,3 +37,20 @@
     background-color: #f1f1f1;
   }
   
+  /* dark mode */
+body.dark-mode .share-menu {
+  background-color: #343a40; 
+  border: 1px solid #666;
+}
+
+body.dark-mode .share-menu ul li {
+  color: #f8f9fa;
+}
+
+body.dark-mode .share-menu ul li:hover {
+  background-color: #495057; 
+}
+
+body.dark-mode .share-menu ul li i {
+  color: #f8f9fa; 
+}

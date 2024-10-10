@@ -6,6 +6,7 @@ function LeftMenuFeed() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
+        document.body.classList.remove('dark-mode');
         navigate('/loading', { state: { destination: '/' } });
     }
 

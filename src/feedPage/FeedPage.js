@@ -1,10 +1,9 @@
 import './FeedPage.css'
 import React, {useState, useEffect} from 'react';
-import { useLocation } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import NovebarFeed from '../novebarFeed/NovebarFeed.js';
-import { getNameByUsername, getProfilePicByUsername } from '../fakeDatabase/usersFakeDatabase.js';
+import { getNameByUsername, getProfilePicByUsername, checkUserByUsername } from '../fakeDatabase/usersFakeDatabase.js';
 import { getPosts, getSearchPosts } from '../fakeDatabase/postsFakeDatabase.js';
 import ProfileCard from '../profileCard/ProfileCard.js';
 import LeftMenuFeed from '../leftMenuInFeed/LeftMenuInFeed.js'
@@ -20,18 +19,19 @@ function FeedPage() {
   const location = useLocation();
   const { username } = location.state || {};
   const [posts, setPosts] = useState(null);
-  const [redirect, setRedirect] = useState(false); // State to handle redirection
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!username) {
-      setRedirect(true); 
+      navigate('/'); 
     } else {
+      if (!checkUserByUsername(username)) {
+        navigate('/');
+      }
       setPosts(getPosts());
     }
-  }, [username]); 
-  if (redirect) {
-    return <Navigate to="/" />; 
-  }
+  }, [username]);
+
 
 const refreshPost = () => {
   setPosts(getPosts());
@@ -47,14 +47,13 @@ const refreshPost = () => {
   }
 
 
-
   const name = getNameByUsername(username);
   const imageUrl = getProfilePicByUsername(username) || defaultPic;
 
 
 
   return (
-    <div className="container text-center">
+    <div className="container text-center main-back">
       <NovebarFeed handleSearch={handleSearch} handleCancelSearch={handleCancelSearch}/>
       <div className='maindiv'>
         <div className="row">
@@ -74,6 +73,7 @@ const refreshPost = () => {
                   postText={post.postText}
                   postPic={post.postPic}
                   time={post.time}
+                  refreshPosts={refreshPost}
                   />
               </div>
             ))}

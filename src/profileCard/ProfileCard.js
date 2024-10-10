@@ -11,10 +11,9 @@ function ProfileCard({ name, imageUrl}) {
         src={imageUrl || defaultPic} // If imageUrl is not provided, use defaultPic
         alt={name}
         className="rounded-image"
-        style={{ width: '150px', height: '150px', borderRadius: '50%' }}
+        style={{ width: '200px', height: '200px', borderRadius: '50%' }}
       />
       <h3 className="person-name">{name}</h3>
-      <button className="btn btn-primary">View Profile</button>
     </div>
   );
 }

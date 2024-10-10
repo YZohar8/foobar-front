@@ -15,46 +15,46 @@
 .user-info {
     display: flex;
     align-items: center;
-    margin-bottom: 2px; /* מרווח בין המשתמש לפוסט */
+    margin-bottom: 2px; 
 }
 
 .user-image {
-    width: 40px; /* גודל התמונה של המשתמש */
+    width: 40px; 
     height: 40px;
     border-radius: 50%;
-    margin-right: 10px; /* מרווח בין התמונה לשם */
+    margin-right: 10px; 
 }
 
 .user-name {
-    font-weight: bold; /* שם המשתמש בולט */
+    font-weight: bold; 
 }
 
 .post-form {
     display: flex;
-    flex-direction: column; /* תצוגה אנכית של השדות */
+    flex-direction: column; 
 }
 
 .post-text {
-    width: 100%; /* רוחב השדה של הפוסט */
-    height: 70px; /* גובה השדה של הפוסט */
-    padding: 10px; /* Padding בשדה */
-    border: 1px solid #ddd; /* גבול לשדה */
-    border-radius: 5px; /* פינות מעוגלות */
-    resize: none; /* למנוע שינויים בגובה של הטקסט */
-    margin-bottom: 2px; /* מרווח בין השדות */
+    width: 100%; 
+    height: 70px; 
+    padding: 10px; 
+    border: 1px solid #ddd; 
+    border-radius: 5px; 
+    resize: none; 
+    margin-bottom: 2px; 
 }
 
 .image-input {
-    margin-bottom: 2px; /* מרווח בין שדה התמונה לפוסט */
+    margin-bottom: 2px; 
 }
 
 .preview-image {
-    margin: 2px 0; /* מרווח לתצוגה מקדימה */
+    margin: 2px 0; 
 }
 
 .preview-image img {
-    max-width: 100%; /* התמונה המקדימה תתאים לרוחב */
-    border-radius: 5px; /* פינות מעוגלות */
+    max-width: 100%; 
+    border-radius: 5px; 
 }
 
 .submit-button {
@@ -70,4 +70,38 @@
 
 .submit-button:hover {
     background-color: #0056b3; /* צבע כפתור כשמעבירים מעליו את העכבר */
+}
+
+
+/*dark mode*/
+body.dark-mode .post-upload {
+    background-color: #333;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .post-text {
+    background-color: #444;
+    color: #ddd;
+    border: 1px solid #555;
+}
+
+body.dark-mode .submit-button {
+    background-color: #1e90ff;
+    color: #fff;
+}
+
+body.dark-mode .submit-button:hover {
+    background-color: #1c75d8;
+}
+
+body.dark-mode .user-name {
+    color: #f1f1f1;
+}
+
+body.dark-mode .image-input {
+    color: #ccc;
+}
+
+body.dark-mode .preview-image img {
+    border: 1px solid #666;
 }

@@ -1,8 +1,8 @@
 .profile-card {
   position: fixed;
-  top: 20px; /* Keep some margin from the top */
-  right: 0; /* Aligns the card to the right side of the viewport */
-  width: 300px; /* Increased the width of the profile card */
+  top: 20px; 
+  right: 0; 
+  width: 300px; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,26 +11,45 @@
   border: 1px solid #ddd;
   top: 48px;
   border-radius: 8px;
-  padding: 20px; /* Increased padding for better spacing */
+  padding: 20px; 
   margin: 8px 0;
-  z-index: 1000; /* Ensure it's on top of other elements */
+  z-index: 1000; 
 }
 
 .rounded-image {
-  width: 120px; /* Increased image size */
+  width: 120px; 
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 20px; /* Increased spacing below the image */
+  margin-bottom: 20px; 
 }
 
 .person-name {
   margin-bottom: 20px;
-  font-size: 1.5rem; /* Increased the font size */
+  font-size: 1.5rem; 
   color: #333;
 }
 
 .btn-primary {
-  padding: 12px 20px; /* Increased button padding */
-  font-size: 1.1rem; /* Slightly larger button text */
+  padding: 12px 20px; 
+  font-size: 1.1rem; 
+}
+
+/* dark mode*/
+body.dark-mode .profile-card {
+  background-color: #444; 
+  border: 1px solid #666; 
+}
+
+body.dark-mode .person-name {
+  color: #f1f1f1; 
+}
+
+body.dark-mode .btn-primary {
+  background-color: #007bff; 
+  color: #fff; 
+}
+
+body.dark-mode .btn-primary:hover {
+  background-color: #0056b3; 
 }

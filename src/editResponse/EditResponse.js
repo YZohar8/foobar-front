@@ -21,7 +21,7 @@ function EditResponse({ responseId, responseText, refresh, handleClose, show }) 
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>edit response</Modal.Title>
+                <Modal.Title className='model-title'>edit response</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form>

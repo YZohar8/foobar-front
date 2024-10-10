@@ -1,4 +1,5 @@
 import './NovebarFeed.css'
+import DarkModeToggle from '../darkModeToggle/DarkModeToggle.js'
 import { useRef } from 'react';
 
 function NovebarFeed({ handleSearch, handleCancelSearch }) {
@@ -7,6 +8,7 @@ function NovebarFeed({ handleSearch, handleCancelSearch }) {
         <nav className="navbar navbar-expand-lg fixed-top custom-navbar">
             <div className="container-fluid d-flex align-items-center">
                 {/* Left side: Facebook icon and text */}
+                <DarkModeToggle />
                 <i className="bi bi-facebook"></i>
                 <a className="navbar-brand">oobar</a>
                 {/* Right side: Remove collapse, keep icons visible */}

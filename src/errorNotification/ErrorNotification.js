@@ -1,34 +1,13 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React from 'react';
+import './ErrorNotification.css';
 
-const ErrorNotification = forwardRef((props, ref) => {
-  const [showError, setShowError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-
-  useImperativeHandle(ref, () => ({
-    triggerError(message) {
-      setErrorMessage(message || 'There was an error processing your request.');
-      setShowError(true);
-    },
-    
-    closeError() {
-      setShowError(false);
-      setErrorMessage('');
-    }
-  }));
-
-  return (
-    <>
-      {showError && (
+const ErrorNotification = ({ message, onClose }) => {
+    return (
         <div className="error-notification">
-          <span>{errorMessage}</span>
-          <i class="bi bi-x-lg close-error-btn" onClick={() => setShowError(false)}>
-            &times;
-          </i>
-            
+            <span>{message}</span>
+            <button onClick={onClose} className="close-button">✖</button>
         </div>
-      )}
-    </>
-  );
-});
+    );
+};
 
 export default ErrorNotification;

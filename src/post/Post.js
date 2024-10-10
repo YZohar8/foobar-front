@@ -26,15 +26,12 @@ function timeSince(date) {
 }
 
 // Post component to display individual posts
-function Post({ realusername, Id, username, name, profilePic, postText, postPic, time }) {
+function Post({ realusername, Id, username, name, profilePic, postText, postPic, time, refreshPosts}) {
 
   const isEdit = (realusername === username); // Check if the logged-in user is the post author
 
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalResponses, setShowModalResponses] = useState(false);
-  const navigate = useNavigate();
-
-
 
 
 
@@ -46,10 +43,12 @@ function Post({ realusername, Id, username, name, profilePic, postText, postPic,
 
 
   const handleDeletePost = () => {
+    console.log(postText);
     if (!deletePost(Id)) {
       // error messege
     }
-    navigate('/feed', { state: { username: username}});
+    refreshPosts();
+  
   }
 
 
@@ -63,9 +62,9 @@ function Post({ realusername, Id, username, name, profilePic, postText, postPic,
           <span className="post-time">{timeSince(new Date(time))}</span> {/* Display how long ago the post was made */}
         </div>
         {/* Show the edit icon if the current user is the post's author */}
-        {isEdit && (<i className="bi bi-pencil edit-post-button" onClick={handleShowEdit}></i>)}
+        {isEdit && (<i className="bi bi-pencil edit-post-button" onClick={() => handleShowEdit()}></i>)}
         {isEdit && (<i class="bi bi-trash3-fill edit-post-button" onClick={() => handleDeletePost()}></i>)}
-        <EditPostModel show={showModalEdit} handleClose={handleCloseEdit} username={realusername} Id={Id} postText={postText} postPic={postPic} />
+        <EditPostModel show={showModalEdit} handleClose={handleCloseEdit} Id={Id} postText={postText} postPic={postPic} refreshPosts={refreshPosts}/>
       </div>
       <hr />
       {/* Post content */}
