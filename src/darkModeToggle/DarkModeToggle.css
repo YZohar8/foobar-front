@@ -1,0 +1,13 @@
+.sun {
+    padding: 10px 10px;
+    margin: 10px;
+    border-radius: 8px;
+    color: #333;
+    cursor: pointer;
+    font-size: 23px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .sun {
+    color: #e4e6eb;
+}

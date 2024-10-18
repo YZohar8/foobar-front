@@ -1,0 +1,90 @@
+body.dark-mode .dark-but {
+    color: white;
+}
+
+/* ActionMenu.css */
+.response-edit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+}
+
+.action-menu-container {
+    position: relative;
+    display: inline-block;
+}
+
+.action-button-small {
+    cursor: pointer;
+    font-size: 12px;
+    color: var(--icon-color);
+    padding: 4px;
+}
+
+.action-menu-small {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    background-color: var(--menu-bg-color);
+    border: 1px solid var(--menu-border-color);
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    z-index: 1000;
+    width: 70px;
+}
+
+.action-menu-small ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.action-menu-small ul li {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: var(--menu-text-color);
+    font-size: 12px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.action-menu-small ul li i {
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+.action-menu-small ul li:hover {
+    background-color: var(--menu-hover-bg-color);
+    color: var(--menu-hover-text-color);
+    border-radius: 4px;
+}
+
+:root {
+    --icon-color: #333;
+    --menu-bg-color: #fff;
+    --menu-border-color: #ddd;
+    --menu-text-color: #333;
+    --menu-hover-bg-color: #f0f0f0;
+    --menu-hover-text-color: #000;
+}
+
+body.dark-mode .action-button-small {
+    color: #ccc;
+}
+
+body.dark-mode .action-menu-small {
+    background-color: #333;
+    border-color: #555;
+}
+
+body.dark-mode .action-menu-small ul li {
+    color: #ccc;
+}
+
+body.dark-mode .action-menu-small ul li:hover {
+    background-color: #444;
+    color: #fff;
+}

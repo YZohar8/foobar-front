@@ -55,3 +55,53 @@ textarea {
     cursor: pointer;
     transition: background-color 0.3s;
   }
+
+  /* dark mode */
+body.dark-mode .modal-header {
+    background-color: #343a40; 
+    color: #f8f9fa; 
+}
+
+body.dark-mode .modal-body {
+    background-color: #495057; 
+    color: #f8f9fa; 
+}
+
+body.dark-mode .modal-footer {
+    background-color: #343a40; 
+}
+
+body.dark-mode .btn-primary {
+    background-color: #007bff; 
+    color: #fff; 
+}
+
+body.dark-mode .btn-secondary {
+    background-color: #6c757d; 
+    color: #fff; 
+}
+
+body.dark-mode textarea {
+    background-color: #495057; 
+    color: #f8f9fa; 
+    border: 1px solid #6c757d; 
+}
+
+body.dark-mode .form-control {
+    background-color: #495057; 
+    color: #f8f9fa; 
+    border: 1px solid #6c757d; 
+}
+
+body.dark-mode .action-button {
+    background-color: #555; 
+    color: #fff; 
+}
+
+body.dark-mode .action-button:hover {
+    background-color: #666; 
+}
+
+body.dark-mode .model-title {
+    color: white;
+}

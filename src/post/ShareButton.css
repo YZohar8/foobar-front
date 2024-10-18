@@ -1,0 +1,56 @@
+.share-button-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  
+  .share-menu {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .share-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .share-menu ul li {
+    padding: 8px 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .share-menu ul li i {
+    margin-right: 8px;
+  }
+  
+  .share-menu ul li:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* dark mode */
+body.dark-mode .share-menu {
+  background-color: #343a40; 
+  border: 1px solid #666;
+}
+
+body.dark-mode .share-menu ul li {
+  color: #f8f9fa;
+}
+
+body.dark-mode .share-menu ul li:hover {
+  background-color: #495057; 
+}
+
+body.dark-mode .share-menu ul li i {
+  color: #f8f9fa; 
+}

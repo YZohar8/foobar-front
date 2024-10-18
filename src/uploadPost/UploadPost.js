@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import './UploadPost.css';
 import { addPost, getPosts, nextIdPost } from "../fakeDatabase/postsFakeDatabase";
 
-function UploadPost ({ username, name, profilePic }) {
+function UploadPost ({ username, name, profilePic, whenAddPost }) {
     const [postText, setPostText] = useState('');
+    const [postImageFile, setPostImageFile] = useState(null);
     const [postImageUrl, setPostImageUrl] = useState(null);
     
     const fileInputRef = useRef(null); // Create a ref for the file input
@@ -12,6 +13,7 @@ function UploadPost ({ username, name, profilePic }) {
     
     const handleImageChange = (e) => {
         const file = e.target.files[0];
+        setPostImageFile(file);
         if (file) {
             setPostImageUrl(URL.createObjectURL(file)); // Generate a URL for preview
         } else {
@@ -26,16 +28,17 @@ function UploadPost ({ username, name, profilePic }) {
             const newPost = {
                 Id: nextIdPost(),
                 username,
-                name,
-                profilePic,
                 postText,
-                postPic: postImageUrl,
-                time: new Date().getTime()
+                postPicFile: postImageFile,
+                postPic: null,
+                time: new Date().getTime(),
+                active: true,
+                Likes: 0
             };
             addPost(newPost);
-            console.log(getPosts());
             
-            navigate('/feed', { state: { username: username } }); // Navigate to the feed
+            whenAddPost();
+            navigate('/feed', { state: { username: username } });
         }
         
         // Clear post text and image

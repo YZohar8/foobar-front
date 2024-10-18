@@ -2,15 +2,15 @@
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  margin: 10px 0; /* הקטנת המרווחים */
-  padding: 10px; /* הקטנת ה-padding */
+  margin: 10px 0; 
+  padding: 10px; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .post-header {
   display: flex;
-  align-items: center; /* Aligns items vertically center */
-  justify-content: space-between; /* Spaces out the content */
+  align-items: center; 
+  justify-content: space-between; 
 }
 
 .post-user-image {
@@ -21,14 +21,14 @@
 }
 
 .post-user-info {
-  flex-grow: 1; /* Allow this div to take up available space */
+  flex-grow: 1; 
   display: flex;
-  flex-direction: column; /* Stack name and time vertically */
+  flex-direction: column; 
   align-items: flex-start;
 }
 
 .post-user-name {
-  font-weight: bold; /* Makes the user name bold */
+  font-weight: bold; 
 }
 
 .post-time {
@@ -36,42 +36,45 @@
   font-size: 0.8rem; 
 }
 
-.edit-post-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 4px 8px; 
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
-.edit-post-button:hover {
-  background-color: #0056b3;
-}
+
 
 .post-content {
-  margin: 8px 0; 
+  display: flex;
+  align-items: flex-start; 
+  gap: 15px; 
+  width: 100%;
 }
 
 .post-text {
-  margin-bottom: 10px; 
   color: #333;
-  font-size: 0.9rem; 
+  font-size: 0.9rem;
   text-align: left;
+  word-wrap: break-word; 
+  white-space: pre-wrap; 
+  overflow-wrap: break-word; 
+  flex-grow: 1; 
+  max-height: 300px; 
+  overflow-y: auto;
+}
+
+.post-text-to-show {
+  height: 300px;
 }
 
 .post-image {
-  max-height: 300px;
-  width: auto;
-  height: auto;
+  max-height: 300px; 
+  max-width: 300px;
+  min-height: 300px;  
+  margin-right: 15px; 
   border-radius: 8px;
+  object-fit: cover;
 }
 
 .post-actions {
   display: flex;
-  justify-content: space-around; /* Space out the buttons evenly */
-  margin-top: 8px; /* הקטנת המרווחים */
+  justify-content: space-around; 
+  margin-top: 8px; 
 }
 
 .action-button {
@@ -81,11 +84,123 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  position: relative;
+  display: inline-block;
+  text-align: center;
 }
 
 .action-button:hover {
   background-color: #d3d3d3;
 }
-.red {
-  color: red;
+
+
+/*dark mode*/
+body.dark-mode .post-card {
+  background-color: #444; 
+  border: 1px solid #666; 
 }
+
+body.dark-mode .post-user-info {
+  color: #f1f1f1; 
+}
+
+body.dark-mode .post-time {
+  color: #bbb; 
+}
+
+
+
+body.dark-mode .post-text {
+  color: #f1f1f1; 
+}
+
+body.dark-mode .post-actions .action-button {
+  background-color: #555; 
+}
+
+body.dark-mode .post-actions .action-button:hover {
+  background-color: #666; 
+}
+
+/* edit */
+/* ActionMenu.css */
+
+.action-menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.action-button {
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--icon-color);
+}
+
+.action-menu {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: var(--menu-bg-color);
+  border: 1px solid var(--menu-border-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
+  width: 150px;
+}
+
+.action-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.action-menu ul li {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--menu-text-color);
+  font-size: 14px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.action-menu ul li i {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.action-menu ul li:hover {
+  background-color: var(--menu-hover-bg-color);
+  color: var(--menu-hover-text-color);
+  border-radius: 4px;
+}
+
+:root {
+  --icon-color: #333;
+  --menu-bg-color: #fff;
+  --menu-border-color: #ddd;
+  --menu-text-color: #333;
+  --menu-hover-bg-color: #f0f0f0;
+  --menu-hover-text-color: #000;
+}
+
+body.dark-mode .action-button {
+  color: #ccc;
+}
+
+body.dark-mode .action-menu {
+  background-color: #333;
+  border-color: #555;
+}
+
+body.dark-mode .action-menu ul li {
+  color: #ccc;
+}
+
+body.dark-mode .action-menu ul li:hover {
+  background-color: #444;
+  color: #fff;
+}
+
+

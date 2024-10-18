@@ -1,0 +1,145 @@
+.modal-content {
+  border-radius: 10px;
+  padding: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+}
+
+.responses-container {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  flex-grow: 1;
+}
+
+.response-item {
+  display: flex;
+  align-items: flex-start; 
+  margin-bottom: 15px;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative; 
+}
+
+.response-user-image {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.response-user-info {
+  display: flex;
+  flex-direction: column; 
+  margin-right: 10px; 
+  flex-grow: 1; 
+  text-align: left; 
+}
+
+.response-time {
+  font-size: 0.75rem;
+  color: #999;
+  margin: 0;
+  position: absolute; 
+  bottom: 5px; 
+  right: 10px; 
+}
+
+.response-content {
+  flex-grow: 1; 
+}
+
+.response-username {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.response-separator {
+  border-top: 1px solid #ccc; 
+  margin: 5px 0; 
+  width: 100%; 
+}
+
+.response-text {
+  margin: 10px 0 0; 
+  font-size: 0.9rem;
+  word-wrap: break-word;
+}
+
+.bi-plus {
+  font-size: 24px;
+  cursor: pointer;
+  color: #007bff;
+}
+
+.bi-plus:hover {
+  color: #0056b3;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-top: none;
+}
+
+.edit-placeholder {
+  width: 24px; 
+  height: 24px;
+  visibility: hidden; 
+}
+
+.response-edit-or-delete {
+  font-size: 16px;
+  color: #6c757d;
+  height: 50px;
+  width: 50px;
+  border-radius: 25%;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+}
+
+.response-edit-or-delete:hover {
+  background-color: #6c757d;
+  border-color: #5a6268;
+  color: white;
+}
+
+/* dark mode */
+body.dark-mode .modal-content {
+  background-color: #343a40; 
+  color: #f8f9fa; 
+}
+
+body.dark-mode .response-item {
+  background-color: #495057; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+}
+
+body.dark-mode .response-time {
+  color: #bbb; 
+}
+
+body.dark-mode .response-edit-or-delete {
+  background-color: #6c757d; 
+}
+
+body.dark-mode .response-edit-or-delete:hover {
+  background-color: #5a6268; 
+}
+
+body.dark-mode .bi-plus {
+  color: #007bff; 
+}
+
+body.dark-mode .bi-plus:hover {
+  color: #0056b3; 
+}
+body.dark-mode .model-title {
+  color: white;
+}
