@@ -36,20 +36,8 @@
   font-size: 0.8rem; 
 }
 
-.edit-post-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 4px 8px; 
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin: 5px;
-}
 
-.edit-post-button:hover {
-  background-color: #0056b3;
-}
+
 
 .post-content {
   display: flex;
@@ -120,14 +108,7 @@ body.dark-mode .post-time {
   color: #bbb; 
 }
 
-body.dark-mode .edit-post-button {
-  background-color: #007bff; 
-  color: #fff; 
-}
 
-body.dark-mode .edit-post-button:hover {
-  background-color: #0056b3; 
-}
 
 body.dark-mode .post-text {
   color: #f1f1f1; 
@@ -140,3 +121,86 @@ body.dark-mode .post-actions .action-button {
 body.dark-mode .post-actions .action-button:hover {
   background-color: #666; 
 }
+
+/* edit */
+/* ActionMenu.css */
+
+.action-menu-container {
+  position: relative;
+  display: inline-block;
+}
+
+.action-button {
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--icon-color);
+}
+
+.action-menu {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: var(--menu-bg-color);
+  border: 1px solid var(--menu-border-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
+  width: 150px;
+}
+
+.action-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.action-menu ul li {
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--menu-text-color);
+  font-size: 14px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.action-menu ul li i {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.action-menu ul li:hover {
+  background-color: var(--menu-hover-bg-color);
+  color: var(--menu-hover-text-color);
+  border-radius: 4px;
+}
+
+:root {
+  --icon-color: #333;
+  --menu-bg-color: #fff;
+  --menu-border-color: #ddd;
+  --menu-text-color: #333;
+  --menu-hover-bg-color: #f0f0f0;
+  --menu-hover-text-color: #000;
+}
+
+body.dark-mode .action-button {
+  color: #ccc;
+}
+
+body.dark-mode .action-menu {
+  background-color: #333;
+  border-color: #555;
+}
+
+body.dark-mode .action-menu ul li {
+  color: #ccc;
+}
+
+body.dark-mode .action-menu ul li:hover {
+  background-color: #444;
+  color: #fff;
+}
+
+

@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import './DarkModeToggle.css'
 
 const DarkModeToggle = () => {
-
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  let flag = false;
+  if (document.body.classList.contains('dark-mode')) {
+    flag = true;
+  }
+    const [isDarkMode, setIsDarkMode] = useState(flag);
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);

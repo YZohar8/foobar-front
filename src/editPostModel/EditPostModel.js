@@ -1,7 +1,6 @@
 import { updatePost } from '../fakeDatabase/postsFakeDatabase.js'
 import React, { useState, useEffect } from 'react';
 import { Modal, Form } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import './EditPostModel.css'
 
 
@@ -40,7 +39,7 @@ function EditPostModel({ show, handleClose, Id, postText, postPic, refreshPosts}
       <Modal.Body>
         <Form>
           <Form.Group controlId="formText">
-            <Form.Control as="textarea" rows={3} value={editPostText} onChange={(e) => setEditPostText(e.target.value)} />
+            <Form.Control as="textarea" rows={3} value={editPostText} onChange={(e) => setEditPostText(e.target.value)} required />
           </Form.Group>
 
           <Form.Group controlId="formFile" className="mt-3" >
@@ -48,7 +47,8 @@ function EditPostModel({ show, handleClose, Id, postText, postPic, refreshPosts}
               if (e.target.files[0]) {
                 setEditPostPic(e.target.files[0]);
               }
-            }} />
+            }}
+            required />
           </Form.Group>
         </Form>
       </Modal.Body>

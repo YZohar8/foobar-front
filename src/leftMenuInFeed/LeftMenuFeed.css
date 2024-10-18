@@ -10,6 +10,7 @@
   border-right: 1px solid #ccc;
   overflow-y: auto; 
   z-index: 1000; 
+  overflow: hidden;
 }
 
 

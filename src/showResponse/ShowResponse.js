@@ -24,6 +24,8 @@ function timeSince(date) {
 
 function ShowResponse({ response, refresh, username }) {
     const [showModalEditResponse, setShowModalEditResponse] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     const responseId = response.Id;
 
     const handleShowEditResponse = () => setShowModalEditResponse(true);
@@ -36,6 +38,10 @@ function ShowResponse({ response, refresh, username }) {
         refresh();
     }
 
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
 
 
     return (
@@ -44,22 +50,29 @@ function ShowResponse({ response, refresh, username }) {
             <div className="response-user-info">
                 <span className="response-username">{getNameByUsername(response.username)}</span>
                 <span className="response-time">{timeSince(response.time)}</span>
+                <div className="response-edit">
+                    {(response.username === username) &&
+                        <div className="action-menu-container">
+                            <i className="bi bi-three-dots action-button-small" onClick={toggleMenu}></i>
+                            {isMenuOpen && (
+                                <div className="action-menu">
+                                    <ul>
+                                        <li>
+                                            <i className="bi bi-pencil" onClick={handleShowEditResponse}></i> Edit
+                                        </li>
+                                        <li>
+                                            <i className="bi bi-trash" onClick={() => handleDeleteResponse()}></i> Delete
+                                        </li>
+                                    </ul>
+                                </div>
+                            )}
+                        </div>
+                    }
+                </div>
                 <div className="response-separator"></div>
                 <p className="response-text">{response.text}</p>
 
-                <div className="response-edit">
-                    {(response.username === username) ? (
-                        <div>
-                            <i className="bi bi-pencil-square response-edit-or-delete dark-but" onClick={handleShowEditResponse}
-                                style={{ margin: '5px' }} ></i>
-                            <i class="bi bi-trash3-fill response-edit-or-delete dark-but" onClick={() => handleDeleteResponse(responseId)}
-                                style={{ margin: '5px' }}></i>
-                        </div>
-
-                    ) : (
-                        <div className="edit-placeholder"></div>
-                    )}
-                </div>
+                
                 <EditResponse responseId={responseId} responseText={response.text} refresh={refresh}
                     handleClose={handleCloseEditResponse} show={showModalEditResponse
                     } />

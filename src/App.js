@@ -5,6 +5,7 @@ import LoginPage from './loginPage/LoginPage.js';
 import RegisterPage from './registerPage/RegisterPage.js';
 import FeedPage from './feedPage/FeedPage.js';
 import LoadingScreen from './loadingScreen/LoadingScreen.js';
+import ProfileFeed from './profileFeed/ProfileFeed.js';
 
 import postsData from './data/postsData.json'
 import { addPost } from './fakeDatabase/postsFakeDatabase.js';
@@ -45,6 +46,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/feed" element={<FeedPage />} />
         <Route path="/loading" element={<LoadingScreen />} />
+        <Route path="/profilefeed" element={<ProfileFeed />} />
 
 
       </Routes>

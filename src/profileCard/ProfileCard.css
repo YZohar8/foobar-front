@@ -53,3 +53,48 @@ body.dark-mode .btn-primary {
 body.dark-mode .btn-primary:hover {
   background-color: #0056b3; 
 }
+
+.custom-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px; 
+  border-radius: 30px; 
+  font-size: 12px; 
+  font-weight: 500;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-btn i {
+  margin-right: 6px; 
+  font-size: 14px; 
+}
+
+.custom-btn.neutral {
+  background-color: #6c757d;
+  color: white;
+}
+
+.custom-btn.danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.custom-btn.warning {
+  background-color: #ffc107;
+  color: black;
+}
+
+.custom-btn.success {
+  background-color: #28a745;
+  color: white;
+}
+
+.custom-btn:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); 
+}
+
+.custom-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); 
+}

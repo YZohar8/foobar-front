@@ -28,8 +28,35 @@ export const getPosts = () => {
     }
 };
 
+export const getPostsForOneUser = (username) => {
+    let postList = posts
+        .filter((post) => post.active === true && post.username === username)
+        .map(post => ({ ...post })); 
+    
+    if (postList.length > 0) {
+        postList = postList.map(post => {
+            if (!post.postPic) {
+                post.postPic = URL.createObjectURL(post.postPicFile);
+            }
+            return post; 
+        });
+        return postList.sort((a, b) => b.time - a.time);
+    } else {
+        return []; 
+    }
+};
+
 export const getSearchPosts = (text) => {
-    let postList = posts.filter((post) => post.active === true);
+    let postList = posts
+        .filter((post) => post.active === true).map(post => ({ ...post }));
+    postList = postList.filter((post) => post.postText?.includes(text));
+    return postList.sort((a, b) => b.time - a.time);
+};
+
+export const getSearchPostsForOneUser = (text, username) => {
+    let postList = posts
+        .filter((post) => post.active === true && post.username === username)
+        .map(post => ({ ...post }));
     postList = postList.filter((post) => post.postText?.includes(text));
     return postList.sort((a, b) => b.time - a.time);
 };

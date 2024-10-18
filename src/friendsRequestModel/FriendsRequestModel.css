@@ -1,0 +1,56 @@
+.suggested-users-list {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+.suggested-user-item {
+    padding: 2px;
+    border-bottom: 1px solid #ddd;
+}
+
+.suggested-user-image {
+    border: 2px solid #f0f0f0;
+    transition: transform 0.2s ease-in-out;
+}
+
+.suggested-user-image:hover {
+    transform: scale(1.1);
+}
+
+.suggested-user-name {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 10px;
+}
+
+.action-button i {
+    font-size: 16px;
+}
+
+.action-button.success {
+    color: #28a745;
+    border: none;
+}
+
+body.dark-mode .action-button.success {
+    color: #28a745;
+}
+
+.action-button.danger {
+    color: #dc3545;
+    border: none;
+}
+body.dark-mode .action-button.danger {
+    color: #dc3545;
+}
+
+.button-inline {
+    display: inline-flex; 
+    gap: 8px; 
+}

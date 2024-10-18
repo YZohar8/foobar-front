@@ -64,7 +64,9 @@ function RegisterPage() {
         password,
         name,
         profilePic: profileImage,
-        profilePicUrl: null
+        profilePicUrl: null,
+        friendsList: [],
+        friendsRequests: []
       };
       addUser(newUser);
       openModal();
