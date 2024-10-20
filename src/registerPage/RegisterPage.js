@@ -4,6 +4,7 @@ import defaultPic from '../pictures/defult_user.jpg'
 import { addUser, checkUserByUsername } from '../fakeDatabase/usersFakeDatabase.js'
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import ErrorNote from '../errorNote/ErrorNote.js';
 
 function RegisterPage() {
 
@@ -13,6 +14,7 @@ function RegisterPage() {
   const [name, SetName] = useState('');
   const [profilePic, SetProfilePic] = useState('');
   const [profilePicUrl, setProfilePicUrl] = useState(defaultPic); // For preview and passing to ProfileCard
+  const [errorNote, setErrorNote] = useState(null);
 
   const [alertConfirmPassword, SetAlertConfirmPassword] = useState('');
   const [alertPassword, SetAlertPassword] = useState('');
@@ -68,7 +70,11 @@ function RegisterPage() {
         friendsList: [],
         friendsRequests: []
       };
-      addUser(newUser);
+      if (!addUser(newUser)) {
+        setErrorNote("problem with create new user");
+        return;
+      }
+      setErrorNote(null);
       openModal();
     
   }
@@ -135,6 +141,7 @@ function RegisterPage() {
         </div>
       </div>
       <AlertRegister header="You have successfully registered" text="Go to the login page to log in to the system" textbtn="login" path="/" />
+      {errorNote && <ErrorNote message={errorNote} onClose={() => setErrorNote(null)}/>}
     </div>
   );
 }

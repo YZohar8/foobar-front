@@ -3,15 +3,17 @@ import './ProfileCard.css';
 import defaultPic from '../pictures/defult_user.jpg'
 import { isAlreadyFriend, isAlreadyinRequestsList, addRequestsTofriendsRequests, deleteFriendFromfriendsList, deleteRequestsFromfriendsRequests } from '../fakeDatabase/usersFakeDatabase.js'
 
-function ProfileCard({ name, imageUrl, realUsername, username, refreshPage }) {
+function ProfileCard({ name, imageUrl, realUsername, username, refreshPage, setErrorNote }) {
   let isMe = realUsername === username;
   let isFriend = isAlreadyFriend(realUsername, username) && !isMe;
   let iSentHimRequest = isAlreadyinRequestsList(realUsername, username) && !isMe;
   let isNotFriend = !isMe && !iSentHimRequest && !isFriend;
+ 
 
   const handleAddRequest = () => {
     if (!addRequestsTofriendsRequests(realUsername, username)) {
-      // error messege
+      setErrorNote("problem with sent friend request");
+      return;
     }
     refreshPage();
     handleChanges();
@@ -19,7 +21,8 @@ function ProfileCard({ name, imageUrl, realUsername, username, refreshPage }) {
 
   const handleDeleteRequest = () => {
     if (!deleteRequestsFromfriendsRequests(realUsername, username)) {
-      // error messege
+      setErrorNote("problem with cancel friends request");
+      return;
     }
     refreshPage();
     handleChanges();
@@ -27,7 +30,8 @@ function ProfileCard({ name, imageUrl, realUsername, username, refreshPage }) {
 
   const handleDeleteFriend = () => {
     if (!deleteFriendFromfriendsList(realUsername, username)) {
-      // error messege
+      setErrorNote("problem with delete friend");
+      return;
     }
     refreshPage();
     handleChanges();

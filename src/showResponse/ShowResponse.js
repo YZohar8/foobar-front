@@ -2,6 +2,7 @@ import { getNameByUsername, getProfilePicByUsername } from '../fakeDatabase/user
 import { deleteResponseById } from '../fakeDatabase/responsesFakeDatabase.js';
 import EditResponse from '../editResponse/EditResponse.js';
 import React, { useState } from 'react';
+import ErrorNote from '../errorNote/ErrorNote.js';
 import './ShowResponse.css'
 
 
@@ -22,7 +23,7 @@ function timeSince(date) {
 }
 
 
-function ShowResponse({ response, refresh, username }) {
+function ShowResponse({ response, refresh, username, setErrorNote}) {
     const [showModalEditResponse, setShowModalEditResponse] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -33,7 +34,8 @@ function ShowResponse({ response, refresh, username }) {
 
     const handleDeleteResponse = (responseId) => {
         if (!deleteResponseById(responseId)) {
-            // error messege
+            setErrorNote("problem with delete response");
+            return;
         }
         refresh();
     }
@@ -57,11 +59,11 @@ function ShowResponse({ response, refresh, username }) {
                             {isMenuOpen && (
                                 <div className="action-menu">
                                     <ul>
-                                        <li>
-                                            <i className="bi bi-pencil" onClick={handleShowEditResponse}></i> Edit
+                                        <li onClick={handleShowEditResponse}>
+                                            <i className="bi bi-pencil" ></i> Edit
                                         </li>
-                                        <li>
-                                            <i className="bi bi-trash" onClick={() => handleDeleteResponse()}></i> Delete
+                                        <li onClick={() => handleDeleteResponse(response.Id)}>
+                                            <i className="bi bi-trash" ></i> Delete
                                         </li>
                                     </ul>
                                 </div>

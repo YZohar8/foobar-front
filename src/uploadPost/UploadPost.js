@@ -1,9 +1,9 @@
 import { React, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import './UploadPost.css';
-import { addPost, getPosts, nextIdPost } from "../fakeDatabase/postsFakeDatabase";
+import { addPost, nextIdPost } from "../fakeDatabase/postsFakeDatabase";
 
-function UploadPost ({ username, name, profilePic, whenAddPost }) {
+function UploadPost ({ username, name, profilePic, whenAddPost, setErrorNote}) {
     const [postText, setPostText] = useState('');
     const [postImageFile, setPostImageFile] = useState(null);
     const [postImageUrl, setPostImageUrl] = useState(null);
@@ -35,7 +35,10 @@ function UploadPost ({ username, name, profilePic, whenAddPost }) {
                 active: true,
                 Likes: 0
             };
-            addPost(newPost);
+            if (!addPost(newPost)) {
+                setErrorNote("problem with create new post");
+                return;
+            }
             
             whenAddPost();
             navigate('/feed', { state: { username: username } });

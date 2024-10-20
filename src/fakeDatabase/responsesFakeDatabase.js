@@ -3,6 +3,7 @@ const responses = [];
 
 export const addResponse = (response) => {
     responses.push(response);
+    return true;
 }
 
 export const getNextResponseId = () => {

@@ -10,12 +10,14 @@ import LeftMenuFeed from '../leftMenuInFeed/LeftMenuInFeed.js'
 import FriendsList from '../friendsList/FriendsList.js';
 import Post from '../post/Post.js';
 import defaultPic from '../pictures/defult_user.jpg'
+import ErrorNote from '../errorNote/ErrorNote.js';
 
 function ProfileFeed () {
     const location = useLocation();
     const { realUsername, username } = location.state || {};
     const [posts, setPosts] = useState(null);
     const [friendsList, setFriendsList] = useState(null);
+    const [errorNote , setErrorNote] = useState(null);
 
     const navigate = useNavigate();
   
@@ -78,11 +80,13 @@ function ProfileFeed () {
               ))}
             </div>
             <div className="col-12 col-lg-3 d-none d-lg-block">
-              <ProfileCard name={name} imageUrl={imageUrl} realUsername={realUsername} username={username} refreshPage={refreshPage}/>
+              <ProfileCard name={name} imageUrl={imageUrl} realUsername={realUsername} username={username} refreshPage={refreshPage}
+              setErrorNote={setErrorNote}/>
               <FriendsList friendsList={friendsList} realUsername={realUsername}/>
             </div>
           </div>
         </div>
+        {errorNote && <ErrorNote message={errorNote} onClose={() => setErrorNote(null)}/>}
       </div>
     );
   }

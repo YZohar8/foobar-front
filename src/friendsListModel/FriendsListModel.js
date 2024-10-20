@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { getNameByUsername, getProfilePicByUsername, deleteFriendFromfriendsList } from '../fakeDatabase/usersFakeDatabase.js'
 import { useNavigate } from 'react-router-dom';
+import ErrorNote from '../errorNote/ErrorNote.js';
 
 function FriendsListModel({ show, handleClose, friendsList, myUsername, refresh }) {
+    const [errorNote , setErrorNote] = useState(null);
     const navigate = useNavigate();
 
 
@@ -14,7 +16,8 @@ function FriendsListModel({ show, handleClose, friendsList, myUsername, refresh 
 
     const handleRemoveFriend = (username) => {
         if (!deleteFriendFromfriendsList(myUsername, username)) {
-            // error messege
+            setErrorNote("problem with delete friend");
+            return;
         }
         refresh();
     };
@@ -53,6 +56,7 @@ function FriendsListModel({ show, handleClose, friendsList, myUsername, refresh 
                     )}
                 </ul>
             </Modal.Body>
+            {errorNote && <ErrorNote message={errorNote} onClose={() => setErrorNote(null)}/>}
         </Modal>
     );
 }

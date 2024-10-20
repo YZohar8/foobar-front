@@ -1,10 +1,12 @@
 import { Modal, Form } from 'react-bootstrap';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { getNextResponseId, addResponse } from '../fakeDatabase/responsesFakeDatabase';
+import ErrorNote from '../errorNote/ErrorNote.js'
 import './AddResponse.css'
 
 function AddResponse({ show, handleClose, postId, username, refresh }) {
     const responseTextRef = useRef();
+    const [errorNote, setErrorNote] = useState(null);
 
     const handleAddResponse = () => {
         const responseText = responseTextRef.current.value;
@@ -18,11 +20,14 @@ function AddResponse({ show, handleClose, postId, username, refresh }) {
                 active: true
             };
             if (!addResponse(newResponse)) {
-                // error messege
+                setErrorNote("problem in create new response");
+                return;
             }
         } else {
-            // error messege
+            setErrorNote("you can't add response witout text");
+            return;
         }
+        setErrorNote(null);
         handleClose();
         refresh();
     }
@@ -47,7 +52,7 @@ function AddResponse({ show, handleClose, postId, username, refresh }) {
                 <i class="bi bi-trash" onClick={handleClose}></i>
                 <i class="bi bi-floppy" onClick={handleAddResponse}></i>
             </div>
-
+            {errorNote && <ErrorNote message={errorNote} onClose={() => setErrorNote(null)}/>}
         </Modal>
     );
 }

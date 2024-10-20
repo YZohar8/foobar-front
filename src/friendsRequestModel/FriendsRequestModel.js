@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { getNameByUsername, getProfilePicByUsername, deleteRequestsFromfriendsRequests, addFriendTofriendsList } from '../fakeDatabase/usersFakeDatabase.js'
 import { useNavigate } from 'react-router-dom';
+import ErrorNote from '../errorNote/ErrorNote.js';
 import './FriendsRequestModel.css'
 
 function FriendsRequestModel({ show, handleClose, friendsRequest, myUsername, refresh }) {
+    const [errorNote , setErrorNote] = useState(null);
     const navigate = useNavigate();
 
     const handleCLickPic = (username) => {
@@ -13,14 +15,16 @@ function FriendsRequestModel({ show, handleClose, friendsRequest, myUsername, re
 
     const handleRemoveRequest = (username) => {
         if (!deleteRequestsFromfriendsRequests(myUsername, username)) {
-            // error messege
+            setErrorNote("problem with remove friend request");
+            return;
         }
         refresh();
     };
 
     const handleApproveRequest = (username) => {
         if (!addFriendTofriendsList(myUsername, username)) {
-            // error messege
+            setErrorNote("problem with approve friend request");
+            return;
         }
         refresh();
     };
@@ -69,6 +73,7 @@ function FriendsRequestModel({ show, handleClose, friendsRequest, myUsername, re
                     )}
                 </ul>
             </Modal.Body>
+            {errorNote && <ErrorNote message={errorNote} onClose={() => setErrorNote(null)}/>}
         </Modal>
     );
 }

@@ -3,12 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { getResponsesById} from '../fakeDatabase/responsesFakeDatabase.js';
 import AddResponse from '../addResponse/AddResponse.js';
 import ShowResponse from '../showResponse/ShowResponse.js';
+import ErrorNote from '../errorNote/ErrorNote.js';
 import './PostResponses.css';
 
 
 function PostResponses({ show, handleClose, postId, username }) {
     const [responses, setResponses] = useState([]);
     const [showModalAddResponse, setShowModalAddResponse] = useState(false);
+    const [errorNote, setErrorNote] = useState(null);
 
     const handleShowAddResponse = () => setShowModalAddResponse(true);
     const handleCloseAddResponse = () => setShowModalAddResponse(false);
@@ -34,7 +36,7 @@ function PostResponses({ show, handleClose, postId, username }) {
             <Modal.Body>
                 <div className="responses-container">
                     {responses.map((response, index) => (
-                        <ShowResponse response={response} refresh={refreshResponses} username={username}/>
+                        <ShowResponse response={response} refresh={refreshResponses} username={username} setErrorNote={setErrorNote}/>
                     ))}
                 </div>
             </Modal.Body>
@@ -42,6 +44,7 @@ function PostResponses({ show, handleClose, postId, username }) {
             </Modal.Footer>
             <i className="bi bi-plus" onClick={handleShowAddResponse}></i>
             <AddResponse show={showModalAddResponse} handleClose={handleCloseAddResponse} postId={postId} username={username} refresh={refreshResponses} />
+            {errorNote && <ErrorNote message={errorNote} onClose={() => setErrorNote(null)}/>}
         </Modal>
     );
 }

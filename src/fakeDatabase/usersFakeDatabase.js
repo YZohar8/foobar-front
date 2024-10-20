@@ -9,6 +9,7 @@ const getUserByUsername = (username) => {
 // Function to add a user to the database
 export const addUser = (user) => {
     users.push(user);
+    return true;
 };
 
 // Function to check if a user exists (for register)

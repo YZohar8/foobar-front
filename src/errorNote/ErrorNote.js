@@ -1,7 +1,7 @@
 import React from 'react';
-import './ErrorNotification.css';
+import './ErrorNote.css';
 
-const ErrorNotification = ({ message, onClose }) => {
+const ErrorNote = ({ message, onClose }) => {
     return (
         <div className="error-notification">
             <span>{message}</span>
@@ -10,4 +10,4 @@ const ErrorNotification = ({ message, onClose }) => {
     );
 };
 
-export default ErrorNotification;
+export default ErrorNote;

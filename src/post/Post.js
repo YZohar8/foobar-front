@@ -77,11 +77,11 @@ function Post({ realusername, Id, username, name, profilePic, postText, postPic,
             {isMenuOpen && (
               <div className="action-menu action-button-small">
                 <ul>
-                  <li>
-                    <i className="bi bi-pencil" onClick={() => handleShowEdit()}></i> Edit
+                  <li onClick={() => handleShowEdit()}>
+                    <i className="bi bi-pencil" ></i> Edit
                   </li>
-                  <li>
-                    <i className="bi bi-trash" onClick={() => handleDeletePost()}></i> Delete
+                  <li onClick={() => handleDeletePost(Id)}>
+                    <i className="bi bi-trash" ></i> Delete
                   </li>
                 </ul>
               </div>

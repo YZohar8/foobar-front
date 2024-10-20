@@ -11,6 +11,7 @@ import UploadPost from '../uploadPost/UploadPost.js'
 import Post from '../post/Post.js'
 import defaultPic from '../pictures/defult_user.jpg'
 import FriendsList from '../friendsList/FriendsList.js'
+import ErrorNote from '../errorNote/ErrorNote.js'
 import './FeedPage.css'
 
 
@@ -23,6 +24,7 @@ function FeedPage() {
   const { username } = location.state || {};
   const [posts, setPosts] = useState(null);
   const [friendsList, setFriendsList] = useState(null)
+  const [errorNote, setErrorNote] = useState(null);
   const navigate = useNavigate();
 
 
@@ -71,7 +73,7 @@ function FeedPage() {
             <LeftMenuFeed username={username} refreshAllPage={refreshPage}/>
           </div>
           <div className="col-12 col-lg-6">
-            <UploadPost username={username} name={name} profilePic={imageUrl} whenAddPost={refreshPage} />
+            <UploadPost username={username} name={name} profilePic={imageUrl} whenAddPost={refreshPage} setErrorNote={setErrorNote}/>
             {posts && posts.map((post, index) => (
               <div key={index} className="post-container">
                 <Post
@@ -90,11 +92,13 @@ function FeedPage() {
             ))}
           </div>
           <div className="col-12 col-lg-3 d-none d-lg-block">
-            <ProfileCard name={name} imageUrl={imageUrl} realUsername={username} username={username} refreshPage={refreshPage}/>
+            <ProfileCard name={name} imageUrl={imageUrl} realUsername={username} username={username} refreshPage={refreshPage}
+            setErrorNote={setErrorNote}/>
             <FriendsList friendsList={friendsList} realUsername={username}/>
           </div>
         </div>
       </div>
+      {errorNote && <ErrorNote message={errorNote} onClose={() => setErrorNote(null)}/>}
     </div>
   );
 }

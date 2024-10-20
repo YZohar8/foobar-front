@@ -1,14 +1,16 @@
 import { updatePost } from '../fakeDatabase/postsFakeDatabase.js'
 import React, { useState, useEffect } from 'react';
 import { Modal, Form } from 'react-bootstrap';
+import ErrorNote from '../errorNote/ErrorNote.js'
 import './EditPostModel.css'
 
 
 
 
-function EditPostModel({ show, handleClose, Id, postText, postPic, refreshPosts}) {
+function EditPostModel({ show, handleClose, Id, postText, postPic, refreshPosts }) {
   const [editPostText, setEditPostText] = useState("");
   const [editPostPic, setEditPostPic] = useState(null);
+  const [errorNote, setErrorNote] = useState(null);
 
   useEffect(() => {
     setEditPostText(postText);
@@ -16,16 +18,19 @@ function EditPostModel({ show, handleClose, Id, postText, postPic, refreshPosts}
   }, [postPic, postText]);
 
   const handleSaveChanges = () => {
-    if (editPostPic && editPostText) {
-      // error messege
-      if (!updatePost(Id, editPostText, editPostPic)) {
-        // error messege
-      };
+    if (!(editPostPic && editPostText)) {
+      setErrorNote("you can't edit post witout text and picture");
+      return;
+    }
+    if (!updatePost(Id, editPostText, editPostPic)) {
+      setErrorNote("problem eith edit post");
+      return;
     }
 
     handleClose();
+    setErrorNote(null);
     refreshPosts();
-    
+
   };
 
 
@@ -48,7 +53,7 @@ function EditPostModel({ show, handleClose, Id, postText, postPic, refreshPosts}
                 setEditPostPic(e.target.files[0]);
               }
             }}
-            required />
+              required />
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -57,6 +62,7 @@ function EditPostModel({ show, handleClose, Id, postText, postPic, refreshPosts}
 
         <i class="bi bi-floppy2-fill action-button" onClick={handleSaveChanges}></i>
       </Modal.Footer>
+      {errorNote && <ErrorNote message={errorNote} onClose={() => setErrorNote(null)} />}
     </Modal>
   );
 }

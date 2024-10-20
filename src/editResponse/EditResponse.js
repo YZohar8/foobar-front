@@ -1,19 +1,24 @@
 import { Modal, Form } from 'react-bootstrap';
 import React, {  useState } from 'react';
 import { updateResponseById } from '../fakeDatabase/responsesFakeDatabase';
+import ErrorNote from '../errorNote/ErrorNote.js'
 
 function EditResponse({ responseId, responseText, refresh, handleClose, show }) {
 
     const [responseEditText, setResponseEditText] = useState(responseText);
+    const [errorNote, setErrorNote] = useState(null);
 
     const handleEditResponse = () => {
         if (responseEditText) {
             if (!updateResponseById(responseId, responseEditText)) {
-                // error messege
+                setErrorNote("problem with edit response");
+                return;
             }
         } else {
-            // error messege
+            setErrorNote("you can't edit response witout text");
+            return;
         }
+        setErrorNote(null);
         handleClose();
         refresh();
     }
@@ -37,7 +42,7 @@ function EditResponse({ responseId, responseText, refresh, handleClose, show }) 
                 <i class="bi bi-trash" onClick={handleClose}></i>
                 <i class="bi bi-floppy" onClick={handleEditResponse}></i>
             </div>
-
+            {errorNote && <ErrorNote message={errorNote} onClose={() => setErrorNote(null)} />}
         </Modal>
     );
 }
