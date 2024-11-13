@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import NovebarFeed from '../novebarFeed/NovebarFeed.js';
-import { getNameByUsername, getProfilePicByUsername, checkUserByUsername, getfriendsList } from '../fakeDatabase/usersFakeDatabase.js';
+import { getNameByUsername, getProfilePicByUsername, checkUserByUsername, getfriendsList, isAlreadyFriend } from '../fakeDatabase/usersFakeDatabase.js';
 import { getPostsForOneUser, getSearchPostsForOneUser } from '../fakeDatabase/postsFakeDatabase.js';
 import ProfileCard from '../profileCard/ProfileCard.js';
 import LeftMenuFeed from '../leftMenuInFeed/LeftMenuInFeed.js'
@@ -18,6 +18,7 @@ function ProfileFeed () {
     const [posts, setPosts] = useState(null);
     const [friendsList, setFriendsList] = useState(null);
     const [errorNote , setErrorNote] = useState(null);
+    let isFriend = isAlreadyFriend(realUsername, username);
 
     const navigate = useNavigate();
   
@@ -36,6 +37,7 @@ function ProfileFeed () {
   const refreshPage = () => {
     setPosts(getPostsForOneUser(username));
     setFriendsList(getfriendsList(username));
+    isFriend = isAlreadyFriend(realUsername, username);
   }
   
     const handleSearch = (text) => {
@@ -62,7 +64,7 @@ function ProfileFeed () {
               <LeftMenuFeed username={realUsername} refreshAllPage={refreshPage}/>
             </div>
             <div className="col-12 col-lg-6">
-              {posts && posts.map((post, index) => (
+              {posts && isFriend && posts.map((post, index) => (
                 <div key={index} className="post-container">
                     <Post
                     realusername={realUsername}
