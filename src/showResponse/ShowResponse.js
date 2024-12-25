@@ -1,43 +1,28 @@
-import { getNameByUsername, getProfilePicByUsername } from '../fakeDatabase/usersFakeDatabase.js';
-import { deleteResponseById } from '../fakeDatabase/responsesFakeDatabase.js';
+
 import EditResponse from '../editResponse/EditResponse.js';
+import commentsConnectToDB from '../connectToDB/commentsConnectToDB.js';
 import React, { useState } from 'react';
-import ErrorNote from '../errorNote/ErrorNote.js';
 import './ShowResponse.css'
+import publicFun from '../publicFun.js';
 
 
-function timeSince(date) {
-    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const months = Math.floor(days / 30);
-    const years = Math.floor(months / 12);
-
-    if (years > 0) return `${years} years ago`;
-    if (months > 0) return `${months} months ago`;
-    if (days > 0) return `${days} days ago`;
-    if (hours > 0) return `${hours} hours ago`;
-    if (minutes > 0) return `${minutes} minutes ago`;
-    return `${seconds} seconds ago`;
-}
 
 
-function ShowResponse({ response, refresh, username, setErrorNote}) {
+function ShowResponse({ response, refresh, userId, setErrorNote}) {
     const [showModalEditResponse, setShowModalEditResponse] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const responseId = response.Id;
 
     const handleShowEditResponse = () => setShowModalEditResponse(true);
     const handleCloseEditResponse = () => setShowModalEditResponse(false);
 
-    const handleDeleteResponse = (responseId) => {
-        if (!deleteResponseById(responseId)) {
-            setErrorNote("problem with delete response");
-            return;
+    const handleDeleteResponse = async () => {
+        const result = await commentsConnectToDB.deleteComment(response.postId, response.id);
+        if (result.success) {
+            refresh();
+        } else {
+            setErrorNote(result.message);
         }
-        refresh();
     }
 
     const toggleMenu = () => {
@@ -47,22 +32,22 @@ function ShowResponse({ response, refresh, username, setErrorNote}) {
 
 
     return (
-        <div key={responseId} className="response-item">
-            <img src={getProfilePicByUsername(response.username)} alt={`${getNameByUsername(response.username)}'s profile`} className="response-user-image" />
+        <div key={response.id} className="response-item">
+            <img src={response.author.image} alt={`${response.author.name}'s profile`} className="response-user-image" />
             <div className="response-user-info">
-                <span className="response-username">{getNameByUsername(response.username)}</span>
-                <span className="response-time">{timeSince(response.time)}</span>
+                <span className="response-username">{response.author.name}</span>
+                <span className="response-time">{publicFun.timeSince(response.date)}</span>
                 <div className="response-edit">
-                    {(response.username === username) &&
+                    {(response.author.id === userId) &&
                         <div className="action-menu-container">
-                            <i className="bi bi-three-dots action-button-small" onClick={toggleMenu}></i>
+                            <i className="bi bi-three-dots action-button-small" onClick={() => toggleMenu()}></i>
                             {isMenuOpen && (
                                 <div className="action-menu">
                                     <ul>
-                                        <li onClick={handleShowEditResponse}>
+                                        <li onClick={() => handleShowEditResponse()}>
                                             <i className="bi bi-pencil" ></i> Edit
                                         </li>
-                                        <li onClick={() => handleDeleteResponse(response.Id)}>
+                                        <li onClick={() => handleDeleteResponse(response.id)}>
                                             <i className="bi bi-trash" ></i> Delete
                                         </li>
                                     </ul>
@@ -75,9 +60,7 @@ function ShowResponse({ response, refresh, username, setErrorNote}) {
                 <p className="response-text">{response.text}</p>
 
                 
-                <EditResponse responseId={responseId} responseText={response.text} refresh={refresh}
-                    handleClose={handleCloseEditResponse} show={showModalEditResponse
-                    } />
+                <EditResponse response={response} refresh={refresh} handleClose={handleCloseEditResponse} show={showModalEditResponse} />
             </div>
         </div>
     );

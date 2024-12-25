@@ -1,21 +1,36 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { getNameByUsername, getProfilePicByUsername, deleteFriendFromfriendsList } from '../fakeDatabase/usersFakeDatabase.js'
+import friendsConnectToDB from '../connectToDB/friendsConnectToDB.js';
+import { getUserByUsernameOrId } from '../connectToDB/usersConnectToDB.js'
 import { useNavigate } from 'react-router-dom';
 import ErrorNote from '../errorNote/ErrorNote.js';
 
-function FriendsListModel({ show, handleClose, friendsList, myUsername, refresh }) {
+function FriendsListModel({ show, handleClose, friendsList, myUser, refresh }) {
     const [errorNote , setErrorNote] = useState(null);
     const navigate = useNavigate();
 
 
 
-    const handleCLickPic = (username) => {
-        navigate('/profilefeed', { state: {realUsername:myUsername, username } });
+    const handleCLickPic = async (userId) => {
+        let connectUser = sessionStorage.getItem('myUser');
+        if(!connectUser) {
+            return;
+        }
+        connectUser = JSON.parse(connectUser);
+        const result = await getUserByUsernameOrId(userId);
+        if (!result.success) {
+            setErrorNote("problem with the move the profile feed");
+        } else {
+            const userProfile = result.user;
+            handleClose();
+            navigate('/profilefeed', { state: { myUser: connectUser, userProfile } });
+
+        }
     }
 
-    const handleRemoveFriend = (username) => {
-        if (!deleteFriendFromfriendsList(myUsername, username)) {
+    const handleRemoveFriend = async (userId) => {
+        const result = await friendsConnectToDB.updateFriendStatus(userId, "not");
+        if (!result.success) {
             setErrorNote("problem with delete friend");
             return;
         }
@@ -29,24 +44,24 @@ function FriendsListModel({ show, handleClose, friendsList, myUsername, refresh 
             </Modal.Header>
             <Modal.Body>
                 <ul className="suggested-users-list">
-                    {friendsList.length > 0 ? (
-                        friendsList.map((username, index) => (
+                    {friendsList && friendsList.length > 0 ? (
+                        friendsList.map((friend, index) => (
                             <li key={index} className="suggested-user-item d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img
-                                        src={getProfilePicByUsername(username)}
+                                        src={friend.image}
                                         className="suggested-user-image"
-                                        onClick={() => handleCLickPic(username)}
+                                        onClick={() => handleCLickPic(friend.id)}
                                         style={{ cursor: 'pointer', width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }}
-                                        alt={`${getNameByUsername(username)}'s profile`}
+                                        alt={`${friend.id}'s profile`}
                                     />
-                                    <span className="suggested-user-name">{getNameByUsername(username)}</span>
+                                    <span className="suggested-user-name">{friend.name}</span>
                                 </div>
                                 <Button
                                     variant="danger"
                                     size="sm"
                                     className="action-button danger"
-                                    onClick={() => handleRemoveFriend(username)}>
+                                    onClick={() => handleRemoveFriend(friend.id)}>
                                     <i className="bi bi-x-circle"></i>
                                 </Button>
                             </li>

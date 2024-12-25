@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {checkUserByUsernameAndPassword} from '../fakeDatabase/usersFakeDatabase.js'
+import {login} from '../connectToDB/usersConnectToDB.js'
 import './LoginPage.css'
 
 function LoginPage() {
@@ -10,15 +10,32 @@ function LoginPage() {
 
     const navigate = useNavigate();
 
+    const isValidEmail = (email) => {
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return regex.test(email);
+      };
 
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        console.log(checkUserByUsernameAndPassword(email, password));
-        if (checkUserByUsernameAndPassword(email, password)) {
-            navigate('/loading', { state: { destination: '/feed', state: { username: email } } });
+
+        if (!email || !password) {
+            setErrorMessage("Email and password are required.");
+            return;
+          }
+      
+          if (!isValidEmail(email)) {
+            setErrorMessage("Please enter a valid email.");
+            return;
+          }
+
+
+
+        const answer = await login(e, email, password);
+        if (answer.success) {
+            navigate('/loading', { state: { destination: '/feed'} });
         } else {
-            setErrorMessage("username or password is uncorrect! try again.");
+            setErrorMessage(answer.message);
         }
     }
 

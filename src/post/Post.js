@@ -2,33 +2,19 @@ import React, { useState } from 'react'; // Ensure useState is properly imported
 import './Post.css'; // Import the CSS for Post styling
 import EditPostModel from '../editPostModel/EditPostModel.js';
 import PostResponses from '../postResponses/PostResponses.js';
-import { deletePost } from '../fakeDatabase/postsFakeDatabase.js';
+import { getUserByUsernameOrId } from '../connectToDB/usersConnectToDB.js';
+import { deletePost } from '../connectToDB/postsConnectToDB.js';
 import { useNavigate } from 'react-router-dom';
 import ShareButton from './ShareButton.js';
 import LikeButton from './LikeButton.js';
+import publicFun from '../publicFun.js';
 
-// Function to calculate how much time has passed since the post was created
-function timeSince(date) {
-  const seconds = Math.floor((new Date() - date) / 1000); // Calculate the difference in seconds
-  const minutes = Math.floor(seconds / 60); // Convert to minutes
-  const hours = Math.floor(minutes / 60); // Convert to hours
-  const days = Math.floor(hours / 24); // Convert to days
-  const months = Math.floor(days / 28); // Convert to months
-  const year = Math.floor(months / 12); // Convert to years
 
-  // Return the appropriate time format based on the elapsed time
-  if (year > 0) return `${year} years ago`;
-  if (months > 0) return `${months} months ago`;
-  if (days > 0) return `${days} days ago`;
-  if (hours > 0) return `${hours} hours ago`;
-  if (minutes > 0) return `${minutes} minutes ago`;
-  return `${Math.floor(seconds)} seconds ago`;
-}
 
 // Post component to display individual posts
-function Post({ realusername, Id, username, name, profilePic, postText, postPic, time, refreshPosts, postPicFile }) {
+function Post({ myUser, Id, authorId, name, profilePic, postText, postPic, time, refreshPosts, setError, likesCounter, commentsCounter }) {
+  const isEdit = (String(myUser.id) === String(authorId)); // Check if the logged-in user is the post author
 
-  const isEdit = (realusername === username); // Check if the logged-in user is the post author
 
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalResponses, setShowModalResponses] = useState(false);
@@ -40,22 +26,32 @@ function Post({ realusername, Id, username, name, profilePic, postText, postPic,
   const handleCloseEdit = () => setShowModalEdit(false);
 
   const handleShowResponses = () => setShowModalResponses(true);
-  const handleCloseResponse = () => setShowModalResponses(false);
+  const handleCloseResponse = () => {
+    setShowModalResponses(false);
+    refreshPosts();
+  }
 
 
-  const handleDeletePost = () => {
-    console.log(postText);
-    if (!deletePost(Id)) {
-      // error messege
+  const handleDeletePost = async () => {
+    const result = await deletePost(Id);
+    if (!result.success) {
+      setError("delete post faild");
     }
     refreshPosts();
   }
 
-  const handleGoToProfileFeed = () => {
-    navigate('/profilefeed', { state: { realUsername: realusername, username: username } })
+  const handleGoToProfileFeed = async () => {
+    const result = await getUserByUsernameOrId(authorId);
+    if (!result.success) {
+      setError("problem with the move the profile feed");
+    } else {
+      const userProfile = result.user;
+      navigate('/profilefeed', { state: { myUser, userProfile } });
+
+    }
   }
 
-  
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -68,7 +64,7 @@ function Post({ realusername, Id, username, name, profilePic, postText, postPic,
         <img src={profilePic} alt={`${name}'s profile`} className="post-user-image" onClick={() => handleGoToProfileFeed()} /> {/* User profile image */}
         <div className="post-user-info">
           <span className="post-user-name">{name}</span> {/* Display the user's name */}
-          <span className="post-time">{timeSince(new Date(time))}</span> {/* Display how long ago the post was made */}
+          <span className="post-time">{publicFun.timeSince(new Date(time))}</span> {/* Display how long ago the post was made */}
         </div>
         {/* Show the edit icon if the current user is the post's author */}
         {isEdit &&
@@ -87,7 +83,7 @@ function Post({ realusername, Id, username, name, profilePic, postText, postPic,
               </div>
             )}
           </div>}
-        <EditPostModel show={showModalEdit} handleClose={handleCloseEdit} Id={Id} postText={postText} postPic={postPicFile} refreshPosts={refreshPosts} />
+        <EditPostModel show={showModalEdit} handleClose={handleCloseEdit} Id={Id} postText={postText} postPic={postPic} refreshPosts={refreshPosts} />
       </div>
       <hr />
       {/* Post content */}
@@ -97,9 +93,12 @@ function Post({ realusername, Id, username, name, profilePic, postText, postPic,
       </div>
       <hr />
       <div className="post-actions">
-        < LikeButton postId={Id} />
-        <i className="bi bi-chat action-button" onClick={handleShowResponses}></i>
-        <PostResponses show={showModalResponses} handleClose={handleCloseResponse} postId={Id} username={realusername} />
+        <LikeButton postId={Id} likesCounter={likesCounter} setError={setError} />
+        <div className="like-button-container">
+          <span className="like-count">{commentsCounter}</span>
+          <i className="bi bi-chat action-button" onClick={() => handleShowResponses()}></i>
+        </div>
+        <PostResponses show={showModalResponses} handleClose={handleCloseResponse} postId={Id} userId={myUser.id} />
         <ShareButton />
       </div>
     </div>

@@ -1,28 +1,44 @@
 import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { getNameByUsername, getProfilePicByUsername, deleteRequestsFromfriendsRequests, addFriendTofriendsList } from '../fakeDatabase/usersFakeDatabase.js'
+import friendsConnectToDB from '../connectToDB/friendsConnectToDB.js';
+import { getUserByUsernameOrId } from '../connectToDB/usersConnectToDB.js'
 import { useNavigate } from 'react-router-dom';
 import ErrorNote from '../errorNote/ErrorNote.js';
 import './FriendsRequestModel.css'
 
-function FriendsRequestModel({ show, handleClose, friendsRequest, myUsername, refresh }) {
+function FriendsRequestModel({ show, handleClose, friendsRequest, myUser, refresh}) {
     const [errorNote , setErrorNote] = useState(null);
     const navigate = useNavigate();
 
-    const handleCLickPic = (username) => {
-        navigate('/profilefeed', { state: { realUsername: myUsername, username } });
+    const handleCLickPic = async (userId) => {
+        let connectUser = sessionStorage.getItem('myUser');
+        if(!connectUser) {
+            return;
+        }
+        connectUser = JSON.parse(connectUser);
+        const result = await getUserByUsernameOrId(userId);
+        if (!result.success) {
+            setErrorNote("problem with the move the profile feed");
+        } else {
+            const userProfile = result.user;
+            handleClose();
+            navigate('/profilefeed', { state: { myUser:connectUser, userProfile } });
+
+        }
     }
 
-    const handleRemoveRequest = (username) => {
-        if (!deleteRequestsFromfriendsRequests(myUsername, username)) {
+    const handleRemoveRequest =  async (userId) => {
+        const result = await friendsConnectToDB.updateFriendStatus(userId, "not");
+        if (!result.success) {
             setErrorNote("problem with remove friend request");
             return;
         }
         refresh();
     };
 
-    const handleApproveRequest = (username) => {
-        if (!addFriendTofriendsList(myUsername, username)) {
+    const handleApproveRequest = async (userId) => {
+        const result = await friendsConnectToDB.updateFriendStatus(userId, "approved");
+        if (!result.success) {
             setErrorNote("problem with approve friend request");
             return;
         }
@@ -36,32 +52,32 @@ function FriendsRequestModel({ show, handleClose, friendsRequest, myUsername, re
             </Modal.Header>
             <Modal.Body>
                 <ul className="suggested-users-list">
-                    {friendsRequest.length > 0 ? (
-                        friendsRequest.map((username, index) => (
+                    {friendsRequest && friendsRequest.length > 0 ? (
+                        friendsRequest.map((friend, index) => (
                             <li key={index} className="suggested-user-item d-flex justify-content-between align-items-center">
                                 <div className="d-flex align-items-center">
                                     <img
-                                        src={getProfilePicByUsername(username)}
+                                        src={friend.image}
                                         className="suggested-user-image"
-                                        onClick={() => handleCLickPic(username)}
+                                        onClick={() => handleCLickPic(friend.id)}
                                         style={{ cursor: 'pointer', width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }}
-                                        alt={`${getNameByUsername(username)}'s profile`}
+                                        alt={`${friend.name}'s profile`}
                                     />
-                                    <span className="suggested-user-name">{getNameByUsername(username)}</span>
+                                    <span className="suggested-user-name">{friend.name}</span>
                                 </div>
                                 <div className='button-inline'>
                                     <Button
                                         variant="success"
                                         size="sm"
                                         className="action-button success me-2"
-                                        onClick={() => handleApproveRequest(username)}>
+                                        onClick={() => handleApproveRequest(friend.id)}>
                                         <i className="bi bi-check-circle"></i>
                                     </Button>
                                     <Button
                                         variant="danger"
                                         size="sm"
                                         className="action-button danger"
-                                        onClick={() => handleRemoveRequest(username)}>
+                                        onClick={() => handleRemoveRequest(friend.id)}>
                                         <i className="bi bi-x-circle"></i>
                                     </Button>
                                 </div>

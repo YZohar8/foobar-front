@@ -1,52 +1,48 @@
 import { React, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import './UploadPost.css';
-import { addPost, nextIdPost } from "../fakeDatabase/postsFakeDatabase";
+import { addPost } from "../connectToDB/postsConnectToDB";
 
-function UploadPost ({ username, name, profilePic, whenAddPost, setErrorNote}) {
+function UploadPost({ myUser, name, profilePic, whenAddPost, setErrorNote }) {
     const [postText, setPostText] = useState('');
-    const [postImageFile, setPostImageFile] = useState(null);
-    const [postImageUrl, setPostImageUrl] = useState(null);
-    
+    const [postImageBase64, setPostImageBase64] = useState(null);
+
     const fileInputRef = useRef(null); // Create a ref for the file input
     const navigate = useNavigate(); // Moved out of the handlePostSubmit function
-    
+
     const handleImageChange = (e) => {
         const file = e.target.files[0];
-        setPostImageFile(file);
         if (file) {
-            setPostImageUrl(URL.createObjectURL(file)); // Generate a URL for preview
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPostImageBase64(reader.result); // Store the Base64 version
+            };
+            reader.readAsDataURL(file); // Convert the file to Base64
         } else {
-            setPostImageUrl(null);
+            setPostImageBase64(null);
         }
     };
-    
-    const handlePostSubmit = (e) => {
+
+    const handlePostSubmit = async (e) => {
         e.preventDefault();
 
-        if (postImageUrl && postText) {
+        if (postText) {
             const newPost = {
-                Id: nextIdPost(),
-                username,
-                postText,
-                postPicFile: postImageFile,
-                postPic: null,
-                time: new Date().getTime(),
-                active: true,
-                Likes: 0
+                text: postText,
+                image: postImageBase64,
             };
-            if (!addPost(newPost)) {
-                setErrorNote("problem with create new post");
+            const result = await addPost(newPost, myUser.id);
+            if (!result.success) {
+                setErrorNote("problem with create new post: " + result.message);
                 return;
             }
-            
+
             whenAddPost();
-            navigate('/feed', { state: { username: username } });
+            navigate('/feed');
         }
-        
+
         // Clear post text and image
         setPostText('');
-        setPostImageUrl(null);
 
         // Reset the file input using the ref
         if (fileInputRef.current) {
@@ -74,7 +70,6 @@ function UploadPost ({ username, name, profilePic, whenAddPost, setErrorNote}) {
                     onChange={handleImageChange}
                     className="image-input"
                     ref={fileInputRef} // Attach the ref to the file input
-                    required
                 />
                 <button type="submit" className="submit-button">Post</button>
             </form>

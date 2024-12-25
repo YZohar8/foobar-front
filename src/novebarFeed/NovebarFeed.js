@@ -10,15 +10,15 @@ function NovebarFeed({ handleSearch, handleCancelSearch }) {
                 {/* Left side: Facebook icon and text */}
                 <DarkModeToggle />
                 <i className="bi bi-facebook"></i>
-                <a className="navbar-brand">oobar</a>
+                <a className="navbar-brand" href="/">oobar</a>
                 {/* Right side: Remove collapse, keep icons visible */}
                 <div className="d-flex justify-content-end flex-grow-1 align-items-center">
                     <form className="d-flex" role="search">
                         <input className="form-control me-2 custom-input" type="search" placeholder="Search" aria-label="Search" ref={textSearch} />
-                        <button type="button" className="btn btn-outline-primary" onClick={() => handleSearch(textSearch.current.value)}>
+                        <button type="button" className="btn btn-outline-primary btn-color-nov" onClick={() => handleSearch(textSearch.current.value)}>
                             <i className="bi bi-search"></i>
                         </button>
-                        <button type="button" className="btn btn-outline-primary" onClick={() => handleCancelSearch()}>
+                        <button type="button" className="btn btn-outline-primary btn-color-nov" onClick={() => handleCancelSearch()}>
                             <i class="bi bi-x-square"></i>
                         </button>
                     </form>

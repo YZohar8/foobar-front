@@ -1,6 +1,8 @@
-const responses = [];
+let responses = [];
 
-
+export const responsesClear = () => {
+    responses = [];
+}
 export const addResponse = (response) => {
     responses.push(response);
     return true;
@@ -34,7 +36,6 @@ export const updateResponseById = (Id, text) => {
 
 export const deleteResponseById = (Id) => {
     const response = responses.find(response => response.Id === Id);
-    console.log(response);
     if (response) {
         response.active = false;
         return true;

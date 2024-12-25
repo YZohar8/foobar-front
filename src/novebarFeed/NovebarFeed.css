@@ -1,6 +1,11 @@
 .custom-navbar {
-    background-color: #cce7ff; 
+    background-color: #0877d8; 
     padding: 0.5rem 1rem; 
+  }
+
+  .btn-color-nov {
+    color: black;
+    border-color: black;
   }
   
   .custom-navbar .navbar-brand {
@@ -71,10 +76,19 @@ body.dark-mode .custom-navbar .custom-btn:hover {
 
 body.dark-mode .custom-navbar .custom-input {
     background-color: #3a3b3c; 
-    color: #e4e6eb; 
-    border: 1px solid #3a3b3c;
+    color: rgb(198, 194, 194); 
+    border: 1px solid white;
+}
+
+body.dark-mode .custom-navbar .custom-input::placeholder {
+  color: azure; 
 }
 
 body.dark-mode .custom-navbar .custom-input:focus {
     border-color: #4e4f50; 
+}
+
+body.dark-mode .btn-color-nov {
+  color: white;
+  border-color: white;
 }

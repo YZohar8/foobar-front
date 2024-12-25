@@ -1,23 +1,53 @@
-import React, { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import {useNavigate, useLocation} from 'react-router-dom';
+import {getUserByUsernameOrId} from '../connectToDB/usersConnectToDB.js'
 import './LoadingScreen.css'
 
 
 function LoadingScreen() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { destination, state } = location.state || {};
+  const { destination } = location.state || {};
 
   useEffect(() => {
+
+    const fetchUserData = async () => {
+      const connectUsername = sessionStorage.getItem('connectUsername');
+
+    if (!connectUsername) {
+      navigate('/'); 
+    } else {
+        const token = sessionStorage.getItem('jwt');  
+
+        if (!connectUsername || !token) {
+            document.body.classList.remove('dark-mode');
+            navigate('/');
+
+        } else {
+
+            const result = await getUserByUsernameOrId(connectUsername);
+
+
+            if (result.success) {
+              sessionStorage.setItem('myUser', JSON.stringify(result.user));
+            } else {
+                navigate('/');
+            }
+        }
+    }
+    
     let timer;
    
       timer = setTimeout(() => {
-        navigate(destination, {state}); 
-      }, 2000);
+        navigate(destination); 
+      }, 1500);
     
 
-    return () => clearTimeout(timer); 
-  }, [navigate, destination, state]);
+    return () => clearTimeout(timer);
+    }
+    fetchUserData();
+     
+  }, [navigate, destination]);
 
 
   return (

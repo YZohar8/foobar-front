@@ -1,51 +1,98 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProfileCard.css';
 import defaultPic from '../pictures/defult_user.jpg'
-import { isAlreadyFriend, isAlreadyinRequestsList, addRequestsTofriendsRequests, deleteFriendFromfriendsList, deleteRequestsFromfriendsRequests } from '../fakeDatabase/usersFakeDatabase.js'
+import friendsConnectToDB from '../connectToDB/friendsConnectToDB.js';
 
-function ProfileCard({ name, imageUrl, realUsername, username, refreshPage, setErrorNote }) {
-  let isMe = realUsername === username;
-  let isFriend = isAlreadyFriend(realUsername, username) && !isMe;
-  let iSentHimRequest = isAlreadyinRequestsList(realUsername, username) && !isMe;
-  let isNotFriend = !isMe && !iSentHimRequest && !isFriend;
- 
+function ProfileCard({ name, imageUrl, myUser, otherUser, refreshPage, setErrorNote }) {
+  const [isMe, setIsMe] = useState(false);
+  const [isFriend, setIsFriend] = useState(false);
+  const [iSentHimRequest, setISentHimRequest] = useState(false);
+  const [isNotFriend, setIsNotFriend] = useState(false);
+  const [reciveRequest, setReciveRequest] = useState(false);
 
-  const handleAddRequest = () => {
-    if (!addRequestsTofriendsRequests(realUsername, username)) {
-      setErrorNote("problem with sent friend request");
+  
+  useEffect(() => {
+    setIsMe(false);
+    setIsFriend(false);
+    setISentHimRequest(false);
+    setIsNotFriend(false);
+    setReciveRequest(false);
+
+    checkFriendsStatus();
+  }, [myUser, otherUser]);
+
+  const handleAddRequest = async () => {
+    const result = await friendsConnectToDB.updateFriendStatus(otherUser.id, "pending");
+    if (!result.success) {
+      setErrorNote(result.message);
       return;
     }
-    refreshPage();
     handleChanges();
   }
 
-  const handleDeleteRequest = () => {
-    if (!deleteRequestsFromfriendsRequests(realUsername, username)) {
-      setErrorNote("problem with cancel friends request");
+  const handleDeleteRequest = async () => {
+    const result = await friendsConnectToDB.updateFriendStatus(otherUser.id, "not");
+    if (!result.success) {
+      setErrorNote(result.message);
       return;
     }
-    refreshPage();
     handleChanges();
   }
 
-  const handleDeleteFriend = () => {
-    if (!deleteFriendFromfriendsList(realUsername, username)) {
-      setErrorNote("problem with delete friend");
+  const handleDeleteFriend = async () => {
+    const result = await friendsConnectToDB.updateFriendStatus(otherUser.id, "not");
+    if (!result.success) {
+      setErrorNote(result.message);
       return;
     }
-    refreshPage();
     handleChanges();
   }
 
-  const handleChanges = () => {
-    isMe = realUsername === username;
-    isFriend = isAlreadyFriend(realUsername, username) && !isMe;
-    iSentHimRequest = isAlreadyinRequestsList(realUsername, username) && !isMe;
-    isNotFriend = !isMe && !iSentHimRequest && !isFriend;
-    console.log(username);
-    console.log(iSentHimRequest);
+  const handleapproveFriend = async () => {
+    const result = await friendsConnectToDB.updateFriendStatus(otherUser.id, "approved");
+    if (!result.success) {
+      setErrorNote(result.message);
+      return;
+    }
+    handleChanges();
+  }
+
+  const checkFriendsStatus = async () => {
+    if (!myUser || !otherUser) {
+      return;
+    }
+    const me = myUser.email === otherUser.email
+
+    setIsMe(me);
+    setIsFriend(false);
+    setISentHimRequest(false);
+    setIsNotFriend(false);
+    setReciveRequest(false);
 
 
+    if (!me) {
+      const result = await friendsConnectToDB.getFriendshipStatus(otherUser.id);
+      if(result.success) {
+        if (result.friendshipStatus.status === "approved") {
+          setIsFriend(true);
+
+        } else if (result.friendshipStatus.status ==="s-pending") {
+          setISentHimRequest(true);
+
+        } else if (result.friendshipStatus.status ==="pending") {
+          setReciveRequest(true);
+
+        } else {
+          setIsNotFriend(true);
+        }
+      } else {
+        setErrorNote(result.message);
+      }
+    }
+  };
+  const handleChanges = async () => {
+    await checkFriendsStatus();
+    await refreshPage();
   }
 
 
@@ -74,9 +121,15 @@ function ProfileCard({ name, imageUrl, realUsername, username, refreshPage, setE
             <i className="bi bi-clock-history"></i> Cancel Friend Request
           </button>
         )}
+        
         {isNotFriend && (
           <button type="button" className="btn custom-btn success" onClick={() => handleAddRequest()}>
             <i className="bi bi-person-plus"></i> Send Friend Request
+          </button>
+        )}
+        {reciveRequest && (
+          <button type="button" className="btn custom-btn success" onClick={() => handleapproveFriend()}>
+            <i className="bi bi-check-circle"></i> aprrove friend
           </button>
         )}
       </div>

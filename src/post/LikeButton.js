@@ -1,33 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import likesConnectToDB from '../connectToDB/likesConnectToDB';
 import './LikeButton.css';
-import { getLikes, setNumOfLikes } from '../fakeDatabase/postsFakeDatabase';
 
-function LikeButton({postId}) {
-  const [like, setLike] = useState(false); 
+function LikeButton({postId, likesCounter , setError}) {
+  const [like, setLike] = useState(false);
+  const [numOfLikes, setNumOfLikes] = useState(likesCounter);
 
-  const changeLike = () => {
-    let num = 1;
-    if (!like) {
-      if (!setNumOfLikes(postId, num)) {
-        // error messege
+  useEffect(() => {
+    reloadThePage();
+  }, [])
+
+  const reloadThePage = async () => {
+    const ILike = await likesConnectToDB.checkUserLike(postId);
+    if(ILike.success) {
+      if (ILike.result) {
+        setLike(true)
+      } else {
+        setLike(false)
       }
-      setLike(true);
     } else {
-      num = -1;
-      if (!setNumOfLikes(postId, num)) {
-        // error messege
-      }
-      setLike(false);
+      setError(ILike.message);
+    }
+  }
+  
+
+  const changeLike = async () => {
+    const response = await likesConnectToDB.updateLike(postId);
+    if (response.success) {
+        if (like) {
+          setLike(false);
+          setNumOfLikes(numOfLikes - 1);
+        } else {
+          setLike(true);
+          setNumOfLikes(numOfLikes + 1);
+        }
+    } else {
+      setError(response.message);
     }
   };
 
   return (
     <div className="like-button-container">
-       <span className="like-count">{getLikes(postId)}</span>
+       <span className="like-count">{numOfLikes}</span>
       {!like ? (
         <i className="bi bi-hand-thumbs-up action-button" onClick={() => changeLike()}></i> // Unliked state
       ) : (
-        <i className="bi bi-hand-thumbs-up-fill action-button red" onClick={() => changeLike()}></i> // Liked state (filled icon)
+        <i className="bi bi-hand-thumbs-up-fill action-button blue" onClick={() => changeLike()}></i> // Liked state (filled icon)
       )}
     </div>
   );

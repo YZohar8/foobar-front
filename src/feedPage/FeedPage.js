@@ -1,10 +1,11 @@
 import './FeedPage.css'
 import React, { useState, useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import NovebarFeed from '../novebarFeed/NovebarFeed.js'
-import { getNameByUsername, getProfilePicByUsername, checkUserByUsername, getfriendsList} from '../fakeDatabase/usersFakeDatabase.js'
-import { getPosts, getSearchPosts } from '../fakeDatabase/postsFakeDatabase.js'
+import friendsConnectToDB from '../connectToDB/friendsConnectToDB.js'
+import { stillLogin} from '../connectToDB/usersConnectToDB.js'
+import { getPosts, getSearchPosts } from '../connectToDB/postsConnectToDB.js'
 import ProfileCard from '../profileCard/ProfileCard.js'
 import LeftMenuFeed from '../leftMenuInFeed/LeftMenuInFeed.js'
 import UploadPost from '../uploadPost/UploadPost.js'
@@ -19,9 +20,7 @@ import './FeedPage.css'
 
 
 function FeedPage() {
-
-  const location = useLocation();
-  const { username } = location.state || {};
+  const [myUser, setMyUser] = useState(null);
   const [posts, setPosts] = useState(null);
   const [friendsList, setFriendsList] = useState(null)
   const [errorNote, setErrorNote] = useState(null);
@@ -29,29 +28,75 @@ function FeedPage() {
 
 
   useEffect(() => {
-    if (!username) {
-      document.body.classList.remove('dark-mode');
-      navigate('/');
-    } else {
-      if (!checkUserByUsername(username)) {
-        document.body.classList.remove('dark-mode');
-        navigate('/');
-      }
-      refreshPage();
+    const checkConnect = async () => {
+        let connectUser = sessionStorage.getItem('myUser');
+        const token = sessionStorage.getItem('jwt');
+
+
+        if (!connectUser || !token) {
+            document.body.classList.remove('dark-mode');
+            navigate('/');
+
+        } else {
+          const result = await stillLogin();
+
+          if (!result.success) {
+            navigate('/');
+          } else {
+            connectUser = JSON.parse(connectUser);
+            setMyUser(connectUser);
+          }
+        }
     }
-  }, [username]);
+    checkConnect();
+}, [navigate]);
 
+useEffect(() => {
+  refreshPage();
+}, [myUser])
 
-  const refreshPage = () => {
-    setPosts(getPosts());
-    setFriendsList(getfriendsList(username));
+  const refreshPage = async () => {
+    const isLogin = await stillLogin();
+    if (!isLogin.success) {
+      navigate('/');
+    }
+    
+    if (!myUser) {
+      return;
+    }
 
+    const result = await getPosts(myUser.id);
+    if (result.success) {
+      setPosts(result.posts.posts);
+    } else {
+      setPosts([]);
+      setErrorNote(result.message);
+    }
+    if (myUser && myUser.id) {
+      const resultFriendsList = await friendsConnectToDB.getApprovedFriends(myUser.id);
+      if (resultFriendsList.success) {
+        setFriendsList(resultFriendsList.approvedFriends);
+      } else {
+        setErrorNote(resultFriendsList.message);
+      }
+    }
+  }
+  
+  const updateMyUser = (user) => {
+    setMyUser(user);
+    sessionStorage.setItem('myUser', JSON.stringify(user));
+    refreshPage();
   }
 
 
-  const handleSearch = (text) => {
-    const listpost = getSearchPosts(text);
-    setPosts(listpost);
+  const handleSearch = async (text) => {
+    const result = await getSearchPosts(text);
+    if (result.success) {
+      setPosts(result.posts);
+    } else {
+      setErrorNote("error with search");
+    }
+    
   }
 
   const handleCancelSearch = () => {
@@ -59,9 +104,8 @@ function FeedPage() {
   }
 
 
-  const name = getNameByUsername(username);
-  const imageUrl = getProfilePicByUsername(username) || defaultPic;
-
+const name = myUser ? myUser.name : '';
+const imageUrl = myUser && myUser.image ? myUser.image : defaultPic;
 
 
   return (
@@ -70,31 +114,35 @@ function FeedPage() {
       <div className='maindiv'>
         <div className="row">
           <div className="col-12 col-lg-3 d-none d-lg-block ">
-            <LeftMenuFeed username={username} refreshAllPage={refreshPage}/>
+            <LeftMenuFeed MyUser={myUser} refreshAllPage={refreshPage} friendsList={friendsList} setError={setErrorNote} updateMyUser={updateMyUser}/>
           </div>
           <div className="col-12 col-lg-6">
-            <UploadPost username={username} name={name} profilePic={imageUrl} whenAddPost={refreshPage} setErrorNote={setErrorNote}/>
-            {posts && posts.map((post, index) => (
+            <UploadPost myUser={myUser} name={name} profilePic={imageUrl} whenAddPost={refreshPage} setErrorNote={setErrorNote}/>
+            {posts && Array.isArray(posts) && posts.map((post, index) => (
               <div key={index} className="post-container">
-                <Post
-                  realusername={username}
-                  Id={post.Id}
-                  username={post.username}
-                  name={getNameByUsername(post.username)}
-                  profilePic={getProfilePicByUsername(post.username)}
-                  postText={post.postText}
-                  postPic={post.postPic}
-                  time={post.time}
+                <Post 
+                  myUser={myUser}
+                  Id={post.id}
+                  authorId={post.author.id}
+                  name={post.author.name}
+                  profilePic={post.author.image}
+                  postText={post.text}
+                  postPic={post.image}
+                  time={post.date}
                   refreshPosts={refreshPage}
-                  postPicFile={post.postPicFile}
+                  setError={setErrorNote}
+                  post={post}
+                  likesCounter={post.likesCounter}
+                  commentsCounter={post.commentsCounter}
+                  
                 />
               </div>
             ))}
           </div>
           <div className="col-12 col-lg-3 d-none d-lg-block">
-            <ProfileCard name={name} imageUrl={imageUrl} realUsername={username} username={username} refreshPage={refreshPage}
+            <ProfileCard name={name} imageUrl={imageUrl} myUser={myUser} otherUser={myUser} refreshPage={refreshPage}
             setErrorNote={setErrorNote}/>
-            <FriendsList friendsList={friendsList} realUsername={username}/>
+            <FriendsList friendsList={friendsList} myUser={myUser} setErrorNote={setErrorNote} obIsProfile={{isProfile: false}}/>
           </div>
         </div>
       </div>
