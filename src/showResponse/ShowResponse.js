@@ -8,6 +8,7 @@ import publicFun from '../publicFun.js';
 
 
 
+
 function ShowResponse({ response, refresh, userId, setErrorNote}) {
     const [showModalEditResponse, setShowModalEditResponse] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,7 +37,7 @@ function ShowResponse({ response, refresh, userId, setErrorNote}) {
             <img src={response.author.image} alt={`${response.author.name}'s profile`} className="response-user-image" />
             <div className="response-user-info">
                 <span className="response-username">{response.author.name}</span>
-                <span className="response-time">{publicFun.timeSince(response.date)}</span>
+                <span className="response-time">{publicFun.timeSinceforComments(response.date)}</span>
                 <div className="response-edit">
                     {(response.author.id === userId) &&
                         <div className="action-menu-container">
