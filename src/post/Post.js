@@ -12,7 +12,7 @@ import publicFun from '../publicFun.js';
 
 
 // Post component to display individual posts
-function Post({ myUser, Id, authorId, name, profilePic, postText, postPic, time, refreshPosts, setError, likesCounter, commentsCounter }) {
+function Post({ myUser, Id, authorId, name, profilePic, postText, postPic, time, refreshPosts, setError, likesCounter, commentsCounter, obIsProfile }) {
   const isEdit = (String(myUser.id) === String(authorId)); // Check if the logged-in user is the post author
 
 
@@ -98,7 +98,7 @@ function Post({ myUser, Id, authorId, name, profilePic, postText, postPic, time,
           <span className="like-count">{commentsCounter}</span>
           <i className="bi bi-chat action-button" onClick={() => handleShowResponses()}></i>
         </div>
-        <PostResponses show={showModalResponses} handleClose={handleCloseResponse} postId={Id} userId={myUser.id} />
+        <PostResponses obIsProfile={obIsProfile} show={showModalResponses} handleClose={handleCloseResponse} postId={Id} userId={myUser.id} />
         <ShareButton />
       </div>
     </div>

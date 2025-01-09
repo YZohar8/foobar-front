@@ -7,7 +7,7 @@ import ErrorNote from '../errorNote/ErrorNote.js';
 import './PostResponses.css';
 
 
-function PostResponses({ show, handleClose, postId, userId }) {
+function PostResponses({obIsProfile, show, handleClose, postId, userId }) {
     const [responses, setResponses] = useState([]);
     const [showModalAddResponse, setShowModalAddResponse] = useState(false);
     const [errorNote, setErrorNote] = useState(null);
@@ -41,7 +41,7 @@ function PostResponses({ show, handleClose, postId, userId }) {
             <Modal.Body>
                 <div className="responses-container">
                     {responses.map((response, index) => (
-                        <ShowResponse response={response} refresh={refreshResponses} userId={userId} setErrorNote={setErrorNote}/>
+                        <ShowResponse obIsProfile={obIsProfile} index={index} response={response} refresh={refreshResponses} userId={userId} setErrorNote={setErrorNote}/>
                     ))}
                 </div>
             </Modal.Body>

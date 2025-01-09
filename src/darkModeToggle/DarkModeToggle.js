@@ -21,9 +21,9 @@ const DarkModeToggle = () => {
   return (
     <div>
       {isDarkMode ?
-        (<i class="bi bi-brightness-high sun" onClick={toggleDarkMode}></i>)
+        (<i className="bi bi-brightness-high sun" onClick={toggleDarkMode}></i>)
         :
-        (<i class="bi bi-brightness-high-fill sun" onClick={toggleDarkMode}></i>)
+        (<i className="bi bi-brightness-high-fill sun" onClick={toggleDarkMode}></i>)
         }
     </div>
   );

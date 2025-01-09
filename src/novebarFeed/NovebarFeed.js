@@ -19,7 +19,7 @@ function NovebarFeed({ handleSearch, handleCancelSearch }) {
                             <i className="bi bi-search"></i>
                         </button>
                         <button type="button" className="btn btn-outline-primary btn-color-nov" onClick={() => handleCancelSearch()}>
-                            <i class="bi bi-x-square"></i>
+                            <i className="bi bi-x-square"></i>
                         </button>
                     </form>
                 </div>

@@ -134,6 +134,7 @@ const imageUrl = myUser && myUser.image ? myUser.image : defaultPic;
                   post={post}
                   likesCounter={post.likesCounter}
                   commentsCounter={post.commentsCounter}
+                  obIsProfile={{isProfile: false}}
                   
                 />
               </div>

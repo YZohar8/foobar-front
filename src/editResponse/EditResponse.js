@@ -40,8 +40,8 @@ function EditResponse({ response, refresh, handleClose, show }) {
             <Modal.Footer>
             </Modal.Footer>
             <div className='button-container'>
-                <i class="bi bi-trash" onClick={handleClose}></i>
-                <i class="bi bi-floppy" onClick={() => handleEditResponse()}></i>
+                <i className="bi bi-trash" onClick={handleClose}></i>
+                <i className="bi bi-floppy" onClick={() => handleEditResponse()}></i>
             </div>
             {errorNote && <ErrorNote message={errorNote} onClose={() => setErrorNote(null)} />}
         </Modal>

@@ -1,17 +1,20 @@
 
 import EditResponse from '../editResponse/EditResponse.js';
 import commentsConnectToDB from '../connectToDB/commentsConnectToDB.js';
+import { getUserByUsernameOrId } from '../connectToDB/usersConnectToDB.js';
 import React, { useState } from 'react';
 import './ShowResponse.css'
 import publicFun from '../publicFun.js';
+import { useNavigate } from 'react-router-dom';
 
 
 
 
 
-function ShowResponse({ response, refresh, userId, setErrorNote}) {
+function ShowResponse({obIsProfile, index, response, refresh, userId, setErrorNote}) {
     const [showModalEditResponse, setShowModalEditResponse] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
 
     const handleShowEditResponse = () => setShowModalEditResponse(true);
@@ -30,11 +33,35 @@ function ShowResponse({ response, refresh, userId, setErrorNote}) {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const handleGoToProfileFeed = async () => {
+        let result = await getUserByUsernameOrId(response.author.id);
+        let myUser = null;
+        if (!result.success) {
+            setErrorNote("problem with the move the profile feed");
+        } else {
+            const userProfile = result.user;
+
+            if (obIsProfile?.isProfile) {
+                obIsProfile.fun(userProfile);
+                return;
+            }
+
+            result = await getUserByUsernameOrId(userId);
+            if (!result.success) {
+                setErrorNote("problem with the move the profile feed");
+            } else {
+                myUser = result.user;
+            }
+            navigate('/profilefeed', { state: { myUser, userProfile} });
+    
+        }
+      }
+
 
 
     return (
         <div key={response.id} className="response-item">
-            <img src={response.author.image} alt={`${response.author.name}'s profile`} className="response-user-image" />
+            <img src={response.author.image} alt={`${response.author.name}'s profile`} className="response-user-image" onClick={() => handleGoToProfileFeed()} />
             <div className="response-user-info">
                 <span className="response-username">{response.author.name}</span>
                 <span className="response-time">{publicFun.timeSinceforComments(response.date)}</span>

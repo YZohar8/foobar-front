@@ -41,8 +41,8 @@ function AddResponse({ show, handleClose, postId, refresh }) {
             <Modal.Footer>
             </Modal.Footer>
             <div className='button-container'>
-                <i class="bi bi-trash" onClick={() => handleClose()}></i>
-                <i class="bi bi-floppy" onClick={() => handleAddResponse()}></i>
+                <i className="bi bi-trash" onClick={() => handleClose()}></i>
+                <i className="bi bi-floppy" onClick={() => handleAddResponse()}></i>
             </div>
             {errorNote && <ErrorNote message={errorNote} onClose={() => setErrorNote(null)}/>}
         </Modal>

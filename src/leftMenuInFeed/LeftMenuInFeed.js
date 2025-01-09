@@ -123,7 +123,7 @@ function LeftMenuFeed({ myUser, updateMyUser,  refreshAllPage, friendsList, setE
                 <EditUser handleClose={handleShowEditUser} myUser={myUserRef.current} show={showEditUser} updateMyUser={updateMyUser}/>
                 <li className="nav-item" onClick={() => handleWithdeleteUser()}>
                     <button className="nav-link">
-                        <i class="bi bi-person-fill-dash icon"></i>
+                        <i className="bi bi-person-fill-dash icon"></i>
                         <span>Delete User</span>
                     </button>
                 </li>

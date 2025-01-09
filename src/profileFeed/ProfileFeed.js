@@ -144,6 +144,7 @@ function ProfileFeed() {
                   post={post}
                   likesCounter={post.likesCounter}
                   commentsCounter={post.commentsCounter}
+                  obIsProfile={{isProfile: true, fun: setUserProfile}}
 
                 />
               </div>

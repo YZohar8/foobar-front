@@ -11,18 +11,18 @@ function AlertRegister({ header, text, textbtn, path }) {
 
 
     return (
-        <div class="modal fade" id="registerSuccessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content" style={{minHeight:'200px'}}>
-                    <div class="modal-header">
-                        <h5 class="modal-title">{header}</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div className="modal fade" id="registerSuccessModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+                <div className="modal-content" style={{minHeight:'200px'}}>
+                    <div className="modal-header">
+                        <h5 className="modal-title">{header}</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div className="modal-body">
                         <p>{text}</p>
                     </div>
-                    <div class="modal-footer">
-                        <Link to={path} type="button" class="btn btn-primary" onClick={closeModal}>{textbtn}</Link>
+                    <div className="modal-footer">
+                        <Link to={path} type="button" className="btn btn-primary" onClick={closeModal}>{textbtn}</Link>
                     </div>
                 </div>
             </div>
