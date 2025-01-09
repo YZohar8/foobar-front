@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+# FacebookASP-WebApp-FE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the FacebookASP-WebApp!  
+This is the Web component of a social network project, designed using React to deliver a dynamic and interactive user interface.
 
-## Available Scripts
+## About the Project
+This project serves as the frontend for a Facebook-like social media application. The WebApp does not include an internal database and communicates with a backend server hosted on port `8080`.  
+The backend server repository can be found here:  
+[FacebookASP Server Repository](https://github.com/YZohar8/foobar-server.git)
 
-In the project directory, you can run:
+Our goal was to create a platform for seamless interaction while providing a polished and user-friendly experience. The React framework was utilized to break down the interface into reusable components, efficiently manage states, and render content dynamically.
 
-### `npm start`
+## Development Journey
+- **Initial Setup**: Started with basic HTML and CSS for static designs.  
+- **Transition to React**: Adopted React to develop dynamic features and a component-based architecture.  
+- **Refinements**: Focused on improving the design, functionality, and user experience through extensive refactoring and testing.  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This WebApp is part of the larger FacebookASP system, offering a responsive and visually appealing frontend for users to interact with the platform.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
+- **Sign Up & Login**: Create an account or log in to access the application.  
+- **Newsfeed**: View posts from friends, share updates, and manage your own posts (edit/delete).  
+- **Profile**: Explore user profiles, check connections, and more.
 
-### `npm test`
+## Prerequisites
+Before starting, ensure the following tools are installed on your machine:  
+- **Node.js**  
+- **npm**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Install Node.js and npm (Linux Example):
+```bash
+sudo apt-get update
+sudo apt-get install nodejs
+sudo apt-get install npm
+```
 
-### `npm run build`
+## Installation
+To run the WebApp locally, follow these steps:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/YZohar8/foobar-front.git
+   cd foobar-front
+   ```
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Running the Application
+Start the development server with the following command:
+```bash
+npm start
+```
+- The app will attempt to run on `http://localhost:3000`.  
+- If port `3000` is unavailable, you will be prompted to use a different port.  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Backend Setup
+To fully utilize the application, make sure the backend server is running. Clone and run the backend repository with the following commands:
+```bash
+git clone https://github.com/YZohar8/foobar-server.git
+cd foobar-server
+npm install
+npm start
+```
+The backend server will be hosted on `http://localhost:8080`.
 
-### `npm run eject`
+## Starting Guide
+Once the application is running, it is initialized with sample posts and users.  
+We recommend logging in with the following credentials for testing:
+- **Email**: example@example.com  
+- **Password**: password123  
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Running Tests
+Currently, no automated test suite is configured for this WebApp.  
+However, the project can be tested manually by running it in the browser and interacting with its features.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Live Deployment
+You can also access the live version of the FacebookASP WebApp hosted in the cloud. This deployment showcases the most recent version of the app with real-time functionality.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Enjoy exploring the FacebookASP-WebApp!  
+We look forward to your feedback and suggestions to make it even better.
