@@ -41,7 +41,8 @@ function PostResponses({obIsProfile, show, handleClose, postId, userId }) {
             <Modal.Body>
                 <div className="responses-container">
                     {responses.map((response, index) => (
-                        <ShowResponse obIsProfile={obIsProfile} index={index} response={response} refresh={refreshResponses} userId={userId} setErrorNote={setErrorNote}/>
+                        <ShowResponse obIsProfile={obIsProfile} index={index} response={response} refresh={refreshResponses} userId={userId}
+                         setErrorNote={setErrorNote} handleClose={handleClose}/>
                     ))}
                 </div>
             </Modal.Body>
