@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function ShowResponse({ index, response, refresh, userId, setErrorNote, obIsProfile}) {
+function ShowResponse({ index, response, refresh, userId, setErrorNote, obIsProfile, handleClose}) {
     const [showModalEditResponse, setShowModalEditResponse] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
@@ -44,6 +44,7 @@ function ShowResponse({ index, response, refresh, userId, setErrorNote, obIsProf
 
             if (obIsProfile.isProfile) {
                 obIsProfile.fun(userProfile);
+                handleClose();
                 return;
             }
 
@@ -54,6 +55,7 @@ function ShowResponse({ index, response, refresh, userId, setErrorNote, obIsProf
                 myUser = result.user;
             }
             navigate('/profilefeed', { state: { myUser, userProfile} });
+            handleClose();
     
         }
       }
