@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-function LeftMenuFeed({ myUser, updateMyUser,  refreshAllPage, friendsList, setError}) {
+function LeftMenuFeed({ myUser, updateMyUser,  refreshAllPage, friendsList, setError, obIsProfile}) {
     const [showFriendsList , setShowFriendsList] = useState(false);
     const [showFriendsRequests , setShowFriendsRequests] = useState(false);
     const [showEditUser, setShowEditUser] = useState(false);
@@ -39,7 +39,11 @@ function LeftMenuFeed({ myUser, updateMyUser,  refreshAllPage, friendsList, setE
         navigate('/feed');
     }
     const handleGoProfileFeed = () => {
-        navigate('/profilefeed', { state: {myUser: myUserRef.current, userProfile: myUserRef.current } });
+        if (!obIsProfile.isProfile){
+            navigate('/profilefeed', { state: {myUser: myUserRef.current, userProfile: myUserRef.current } });
+        } else {
+            obIsProfile.fun(myUserRef.current);
+        }
     }
     const handleCloseFriendsList = () => {setShowFriendsList(false)}
     const handleGoFriendsList = () => {
@@ -83,6 +87,11 @@ function LeftMenuFeed({ myUser, updateMyUser,  refreshAllPage, friendsList, setE
         setShowEditUser(!showEditUser);
     }
 
+    const updateMyUserInThisPage = (user) => {
+        myUserRef.current = user;
+        updateMyUser(user);
+    }
+
 
     return (
         <div className="sidebar">
@@ -120,7 +129,7 @@ function LeftMenuFeed({ myUser, updateMyUser,  refreshAllPage, friendsList, setE
                         <span>Edit Profile</span>
                     </button>
                 </li>
-                <EditUser handleClose={handleShowEditUser} myUser={myUserRef.current} show={showEditUser} updateMyUser={updateMyUser}/>
+                <EditUser handleClose={handleShowEditUser} myUser={myUserRef.current} show={showEditUser} updateMyUser={updateMyUserInThisPage}/>
                 <li className="nav-item" onClick={() => handleWithdeleteUser()}>
                     <button className="nav-link">
                         <i className="bi bi-person-fill-dash icon"></i>

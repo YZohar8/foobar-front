@@ -114,7 +114,8 @@ const imageUrl = myUser && myUser.image ? myUser.image : defaultPic;
       <div className='maindiv'>
         <div className="row">
           <div className="col-12 col-lg-3 d-none d-lg-block ">
-            <LeftMenuFeed MyUser={myUser} refreshAllPage={refreshPage} friendsList={friendsList} setError={setErrorNote} updateMyUser={updateMyUser}/>
+            <LeftMenuFeed MyUser={myUser} refreshAllPage={refreshPage} friendsList={friendsList} setError={setErrorNote} updateMyUser={updateMyUser}
+              obIsProfile={{isProfile: false}}/>
           </div>
           <div className="col-12 col-lg-6">
             <UploadPost myUser={myUser} name={name} profilePic={imageUrl} whenAddPost={refreshPage} setErrorNote={setErrorNote}/>
