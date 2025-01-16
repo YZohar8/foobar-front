@@ -42,6 +42,10 @@ const validateUserData = async (userData, isUpdate = false) => {
     if (userData.image && !base64ImagePattern.test(userData.image)) {
         throw new Error('Unsupported or invalid base64 image. Allowed types are .jpg, .jpeg, .png.');
     }
+
+    if (userData.name.length > 16) {
+        userData.name = userData.name.slice(0, 16);
+    }
 };
 
 
@@ -156,6 +160,10 @@ export const updateUser = async (id, name, image) => {
         const user = users.find(user => parseInt(user.id, 10) === parseInt(id));
         if (!user) {
             return { success: false, message: 'User not found' };
+        }
+        
+        if (name.length > 16) {
+            name = name.slice(0, 16);
         }
 
         const compressedImage = await publicFun.compressBase64Image(image);

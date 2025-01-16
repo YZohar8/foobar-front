@@ -130,7 +130,8 @@ function ProfileFeed() {
       <div className='maindiv'>
         <div className="row">
           <div className="col-12 col-lg-3 d-none d-lg-block ">
-            <LeftMenuFeed MyUser={myUser} updateMyUser={updateMyUser} refreshAllPage={refreshPage} friendsList={myFriendList} setError={setErrorNote}/>
+            <LeftMenuFeed MyUser={myUser} updateMyUser={updateMyUser} refreshAllPage={refreshPage} friendsList={myFriendList} setError={setErrorNote}
+            obIsProfile={{isProfile: true, fun: setUserProfile}}/>
           </div>
           <div className="col-12 col-lg-6">
             {posts && (isFriend || isMe) && Array.isArray(posts)  && posts.map((post, index) => (
