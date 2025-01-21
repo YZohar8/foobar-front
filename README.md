@@ -42,6 +42,7 @@ To run the WebApp locally, follow these steps:
    ```bash
    git clone https://github.com/YZohar8/foobar-front.git
    cd foobar-front
+   git checkout part_3_final
    ```
 
 2. Install dependencies:
@@ -65,8 +66,8 @@ To run the backend server that supports this frontend application:
 1. Clone the backend repository:
    ```bash
    git clone https://github.com/YZohar8/foobar-server.git
-   cd foobar-server
    ```
+   how to run the server as explain in server readme file.
 
 2. Follow the backend's instructions to install dependencies and start the server. By default, it runs on port `8080` and serves this application automatically.
 
