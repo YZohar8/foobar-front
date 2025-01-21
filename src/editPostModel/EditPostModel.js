@@ -35,7 +35,7 @@ function EditPostModel({ show, handleClose, Id, postText, postPic, refreshPosts 
     }
     const result = await updatePost(Id, editPostText, editPostPicBase64);
     if (!result.success) {
-      setErrorNote("problem with edit post");
+      setErrorNote("problem with edit post: " + result.message);
       return;
     } else {
       handleClose();

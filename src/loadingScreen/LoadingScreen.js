@@ -15,6 +15,7 @@ function LoadingScreen() {
       const connectUsername = sessionStorage.getItem('connectUsername');
 
     if (!connectUsername) {
+      document.body.classList.remove('dark-mode');
       navigate('/'); 
     } else {
         const token = sessionStorage.getItem('jwt');  
@@ -31,7 +32,8 @@ function LoadingScreen() {
             if (result.success) {
               sessionStorage.setItem('myUser', JSON.stringify(result.user));
             } else {
-                navigate('/');
+              document.body.classList.remove('dark-mode');
+              navigate('/');
             }
         }
     }

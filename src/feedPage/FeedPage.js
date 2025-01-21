@@ -41,6 +41,7 @@ function FeedPage() {
           const result = await stillLogin();
 
           if (!result.success) {
+            document.body.classList.remove('dark-mode');
             navigate('/');
           } else {
             connectUser = JSON.parse(connectUser);
@@ -58,6 +59,7 @@ useEffect(() => {
   const refreshPage = async () => {
     const isLogin = await stillLogin();
     if (!isLogin.success) {
+      document.body.classList.remove('dark-mode');
       navigate('/');
     }
     

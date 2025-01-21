@@ -30,6 +30,7 @@ function ProfileFeed() {
 
   useEffect(() => {
     if (!userProfile || !myUser) {
+      document.body.classList.remove('dark-mode');
       navigate('/');
     } else {
       refreshPage();
@@ -42,6 +43,7 @@ function ProfileFeed() {
   const refreshPage = async () => {
     const isLogin = await stillLogin();
     if (!isLogin.success) {
+      document.body.classList.remove('dark-mode');
       navigate('/');
     }
 
