@@ -42,7 +42,9 @@ To run the WebApp locally, follow these steps:
    ```bash
    git clone https://github.com/YZohar8/foobar-front.git
    cd foobar-front
+   git checkout part_2_final
    ```
+   
 2. Install dependencies:
    ```bash
    npm install
